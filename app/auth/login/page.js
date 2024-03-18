@@ -1,12 +1,16 @@
-"use-client";
+"use client";
 
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import Link from "next/link";
 import React, { useState } from "react";
 import * as Yup from "yup";
+import { useRouter } from "next/navigation";
+
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const onSuccess = (res) => {
     console.log(res);
@@ -33,6 +37,7 @@ function LoginPage() {
 
   const handleSubmit = (values, { resetForm }) => {
     console.log(values);
+    router.push("/dashboard");
   };
   return (
     <div>
@@ -75,7 +80,7 @@ function LoginPage() {
                   </div>
                 </div>
               </div>
-              <div className="mb-4">
+              <div className="mb-3">
                 <div>
                   <label className="mb-[25px] font-semibold text-gray-500">
                     Password
@@ -113,7 +118,7 @@ function LoginPage() {
                     <Field
                       type="checkbox"
                       name="remember"
-                      className="my-2 rounded-md border border-solid border-slate-300 h-4 w-4"
+                      className="rounded-md border border-solid border-slate-300 h-4 w-4"
                     />
                     <p className="font-semibold text-gray-500">Remeber me</p>
                   </div>
@@ -132,7 +137,14 @@ function LoginPage() {
               </button>
               <div className="flex gap-1 py-4">
                 <p className="font-semibold">Not registered?</p>
-                <p className="font-semibold text-blue-600 cursor-pointer hover:underline">Create Account</p>
+                <p className="font-semibold text-blue-600 cursor-pointer hover:underline">
+                  <Link
+                    
+                    href="/auth/signup"
+                  >
+                    Create Account
+                  </Link>
+                </p>
               </div>
               <div className="w-1/2 pb-4">
                 <GoogleOAuthProvider clientId={"4454456"}>

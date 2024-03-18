@@ -3,10 +3,11 @@
 import LoginPage from "./auth/login/page";
 import Loader from "./common/loader";
 import DashboardPage from "./dashboard/page";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
-  
-return <LoginPage />
+  const router = useRouter();
+  return router.replace("/auth/login");
   // if (typeof window !== "undefined") {
   //   return <LoginPage/>
   // } else {

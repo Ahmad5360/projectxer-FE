@@ -1,11 +1,14 @@
-import React from 'react'
+import React from "react";
+import AppLayout from "../common/appLayout";
 
 function DashboardPage() {
   return (
-    <div>
-      <p>Dashboard</p>
-    </div>
-  )
+    <AppLayout>
+      <div className="">
+        <p className="py-4 font-bold text-center text-2xl">Dashboard</p>
+      </div>
+    </AppLayout>
+  );
 }
 
-export default DashboardPage
+export default DashboardPage;
