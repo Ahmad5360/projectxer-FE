@@ -36,7 +36,7 @@ function LoginPage() {
   };
   return (
     <div>
-      <div className="flex mt-8 rounded-md w-[550px] mx-auto shadow-md bg-white p-8">
+      <div className="flex mt-8 rounded-md w-[500px] mx-auto shadow-md bg-white p-8">
         <Formik
           initialValues={{
             email: "",
@@ -126,13 +126,13 @@ function LoginPage() {
               </div>
               <button
                 type="submit"
-                className="text-center py-2 bg-blue-700 w-full text-white rounded-md font-semibold"
+                className="text-center py-2 bg-blue-700 w-full text-white rounded-md font-semibold hover:shadow-blue-600 shadow-md"
               >
                 Login to your account
               </button>
               <div className="flex gap-1 py-4">
                 <p className="font-semibold">Not registered?</p>
-                <p className="font-semibold text-blue-600">Create Account</p>
+                <p className="font-semibold text-blue-600 cursor-pointer hover:underline">Create Account</p>
               </div>
               <div className="w-1/2 pb-4">
                 <GoogleOAuthProvider clientId={"4454456"}>
