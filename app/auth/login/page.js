@@ -6,11 +6,13 @@ import Link from "next/link";
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
+import withAuth from "@/app/common/withAuth";
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  
 
   const onSuccess = (res) => {
     console.log(res);
@@ -37,11 +39,12 @@ function LoginPage() {
 
   const handleSubmit = (values, { resetForm }) => {
     console.log(values);
+    localStorage.setItem("token","1234")
     router.push("/dashboard");
   };
   return (
     <div>
-      <div className="flex mt-8 rounded-md w-[500px] mx-auto shadow-md bg-white p-8">
+      <div className="flex mt-8 rounded-md sm:w-[500px] w-[380px] mx-auto shadow-md bg-white p-8">
         <Formik
           initialValues={{
             email: "",
@@ -138,12 +141,7 @@ function LoginPage() {
               <div className="flex gap-1 py-4">
                 <p className="font-semibold">Not registered?</p>
                 <p className="font-semibold text-blue-600 cursor-pointer hover:underline">
-                  <Link
-                    
-                    href="/auth/signup"
-                  >
-                    Create Account
-                  </Link>
+                  <Link href="/auth/signup">Create Account</Link>
                 </p>
               </div>
               <div className="w-1/2 pb-4">
@@ -159,4 +157,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default  withAuth(LoginPage, { requireAuth: false });;

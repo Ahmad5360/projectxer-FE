@@ -1,14 +1,17 @@
+"use client";
+
 import React from "react";
 import AppLayout from "../common/appLayout";
+import withAuth from "../common/withAuth";
 
 function DashboardPage() {
   return (
-    <AppLayout>
+    
       <div className="">
         <p className="py-4 font-bold text-center text-2xl">Dashboard</p>
       </div>
-    </AppLayout>
+    
   );
 }
 
-export default DashboardPage;
+export default  withAuth(DashboardPage, { requireAuth: true });

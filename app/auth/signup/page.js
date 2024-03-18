@@ -1,5 +1,6 @@
 "use client";
 
+import withAuth from "@/app/common/withAuth";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
 
@@ -13,4 +14,4 @@ function SignupPage() {
   );
 }
 
-export default SignupPage;
+export default withAuth(SignupPage, { requireAuth: false });
