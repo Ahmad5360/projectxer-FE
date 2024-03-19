@@ -14,7 +14,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
+        <div className="w-[calc(100%-100px)] mx-auto">
+
         {children}
+        </div>
       </body>
     </html>
   );

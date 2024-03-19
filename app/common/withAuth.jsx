@@ -14,7 +14,7 @@ const withAuth = (WrappedComponent, options = {}) => {
     
     const pathname = usePathname();
 
-    console.log(options);
+   
     useEffect(() => {
     //   const isTokenExpired = (token) => {
     //     if (!token) return true;
