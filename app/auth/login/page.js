@@ -38,7 +38,7 @@ function LoginPage() {
   };
 
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values);
+    // console.log(values);
     localStorage.setItem("token","1234")
     router.push("/dashboard");
   };

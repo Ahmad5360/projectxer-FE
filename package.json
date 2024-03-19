@@ -18,6 +18,7 @@
     "react-bootstrap-icons": "^1.11.3",
     "react-dom": "^18",
     "react-dropdown-select": "^4.11.2",
+    "react-toastify": "^10.0.5",
     "yup": "^1.4.0"
   },
   "devDependencies": {
