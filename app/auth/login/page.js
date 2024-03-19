@@ -3,16 +3,17 @@
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import withAuth from "@/app/common/withAuth";
+import { AuthContext } from "../authProvider/AuthContext";
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  
+  const { isLoggedIn, login, logout } = useContext(AuthContext);
 
   const onSuccess = (res) => {
     console.log(res);
@@ -39,7 +40,8 @@ function LoginPage() {
 
   const handleSubmit = (values, { resetForm }) => {
     // console.log(values);
-    localStorage.setItem("token","1234")
+    localStorage.setItem("token","1234");
+    login();
     router.push("/dashboard");
   };
   return (

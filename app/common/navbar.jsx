@@ -1,24 +1,18 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import withAuth from "./withAuth";
 import Link from "next/link";
+import { AuthContext } from "../auth/authProvider/AuthContext";
 
 function Navbar() {
-  const [token, setToken] = useState(localStorage.getItem("token"));
   const router = useRouter();
-
-  useEffect(() => {
-    const localToken = localStorage.getItem("token");
-    setToken(localToken);
-  }, [token]);
-
-  
+  const { isLoggedIn, login, logout } = useContext(AuthContext);
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
-    setToken(null);
+    logout();
     router.push("/auth/login");
   };
 
@@ -32,9 +26,11 @@ function Navbar() {
         </div>
         <button
           className="rounded-md px-5 py-2 text-white bg-slate-500"
-          onClick={token ? handleSignOut : () => router.push("/auth/login")}
+          onClick={
+            isLoggedIn ? handleSignOut : () => router.push("/auth/login")
+          }
         >
-          {token ? "Sign Out" : "Sign in"}
+          {isLoggedIn ? "Sign Out" : "Sign in"}
         </button>
       </div>
     </div>
