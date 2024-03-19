@@ -39,7 +39,7 @@ function Dashboard() {
         <div>
           <label
             htmlFor="fileInput"
-            className="rounded-md px-5 py-2 text-white bg-slate-500 cursor-pointer"
+            className="rounded-md px-5 py-2 text-white bg-slate-500 cursor-pointer hover:bg-slate-400"
           >
             Upload
           </label>
@@ -89,15 +89,15 @@ function Dashboard() {
           </div>
           <div className="w-2/5 flex items-center">
             <div className="w-11/12 mx-auto flex items-center justify-center gap-3">
-              <button className="rounded-md px-3 py-2 text-white bg-slate-500 flex gap-2 items-center">
+              <button className="rounded-md px-3 py-2 text-white bg-slate-500 flex gap-2 items-center hover:bg-slate-400">
                 <FileEarmarkCheck />
                 Converted File
               </button>
-              <button className="rounded-md px-3 py-2 text-white bg-slate-500 flex gap-2 items-center">
+              <button className="rounded-md px-3 py-2 text-white bg-slate-500 flex gap-2 items-center hover:bg-slate-400">
                 <FileEarmarkArrowDown />
                 Download Original
               </button>
-              <button className="rounded-md px-3 py-2 text-white bg-red-500 flex gap-2 items-center">
+              <button className="rounded-md px-3 py-2 text-white bg-red-500 flex gap-2 items-center hover:bg-red-400">
                 <Trash3/>
                 Delete
               </button>
