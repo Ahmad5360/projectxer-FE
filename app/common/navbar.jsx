@@ -18,10 +18,12 @@ function Navbar() {
 
   return (
     <div className="bg-white shadow-md">
-      <div className="w-[calc(100%-100px)] mx-auto flex justify-between py-4">
-        <div>
+      <div className="w-[calc(100%-100px)] mx-auto flex justify-between py-4 items-center">
+        <div className="w-32">
           <p className="font-semibold text-3xl">
-            <Link href={"/"}>LOGO</Link>
+            <Link href={"/"}>
+              <img src={"/logo.png"} className="object-cover w-full h-full" />
+            </Link>
           </p>
         </div>
         <button

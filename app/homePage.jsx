@@ -7,23 +7,46 @@ function HomePage() {
       <p className="text-center font-bold text-4xl text-slate-500 italic py-6">
         Welcome to the world of possibilities!
       </p>
-      <div className="flex">
-        <div className="w-3/5 flex items-center justify-center">
-          <p className="text-lg">Image 1 </p>
+      <div className="flex items-center pt-8">
+        <div className="w-3/5 flex flex-col items-center justify-center">
+          <div className="w-[70%] mx-auto">
+            <img src="/logo.png" className="w-full" />
+          </div>
+          <p className="font-bold text-2xl text-center">
+            Project XER will serve as a complete <br /> Primavera P6 Schedule
+            Analytics tool for Planning/Scheduling/Project Controls Engineers &
+            Managers
+          </p>
         </div>
-        <div className="w-2/5 flex items-center justify-center">
-          <p className="text-lg">Image 2 </p>
-          {/* <div className="w-2/4">
-            <div className="relative flex flex-col">
-              <div className="mx-auto w-4/5">
-
-              <div className="bg-slate-600 z-50 text-center text-white font-semibold mx-auto px-6 py-4 w-4/5 rounded-md absolute top-1">
-                <p className="uppercase text-xl">Our Tools</p>
-              </div>
-              </div>
-              <div className="border border-solid h-16 border-black bg-gray-200 relative mt-8  w-full"></div>
+        <div className="w-2/5 flex justify-center">
+          <div className="w-[90%] mx-auto">
+            <div className="w-1/2 mx-auto flex justify-center items-center">
+              <img src="/tools_main.png" />
             </div>
-          </div> */}
+            <div className="grid grid-cols-2 gap-3 my-4">
+              <div>
+                <img src="/tool1.png" />
+              </div>
+              <div>
+                <img src="/tool2.png" />
+              </div>
+              <div>
+                <img src="/tool3.png" />
+              </div>
+              <div>
+                <img src="/tool4.png" />
+              </div>
+              <div>
+                <img src="/tool5.png" />
+              </div>
+              <div>
+                <img src="/tool6.png" />
+              </div>
+            </div>
+            <div className="w-1/2 mx-auto flex justify-center items-center">
+              <img src="/tool_last.png" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
