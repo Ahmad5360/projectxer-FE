@@ -46,7 +46,7 @@ function LoginPage() {
   };
   return (
     <div>
-      <div className="flex mt-8 rounded-md sm:w-[500px] w-[380px] mx-auto shadow-md bg-white p-8">
+      <div className="flex mt-8 rounded-md sm:w-[500px] w-[380px] mx-auto shadow-md bg-white p-6">
         <Formik
           initialValues={{
             email: "",
@@ -61,7 +61,7 @@ function LoginPage() {
         >
           {({ values, setValues, setFieldValue }) => (
             <Form className="w-full">
-              <p className="font-bold text-2xl text-slate-900">
+              <p className="font-semibold text-2xl text-slate-900">
                 Sign in to our platform
               </p>
               <div className="my-4">
