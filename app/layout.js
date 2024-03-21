@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <div>
             <Navbar />
-            <div className="w-[calc(100%-100px)] mx-auto">{children}</div>
+            <div className="md:w-[calc(100%-100px)] mx-auto">{children}</div>
           </div>
         </AuthProvider>
         <ToastContainer />

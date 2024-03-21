@@ -18,16 +18,14 @@ function Navbar() {
 
   return (
     <div className="bg-white shadow-md">
-      <div className="w-[calc(100%-100px)] mx-auto flex justify-between py-4 items-center">
-        <div className="w-32">
-          <p className="font-semibold text-3xl">
-            <Link href={"/"}>
-              <img src={"/logo.png"} className="object-cover w-full h-full" />
-            </Link>
-          </p>
+      <div className="md:w-[calc(100%-100px)] md:mx-auto mx-2 flex justify-between md:py-3 py-2 items-center">
+        <div className="md:w-32 w-16">
+          <Link href={"/"}>
+            <img src={"/logo.png"} className="object-cover w-full h-full" />
+          </Link>
         </div>
         <button
-          className="rounded-md px-5 py-2 text-white bg-slate-500 hover:bg-slate-400"
+          className="rounded-md md:px-5 px-4 md:py-2 py-1 text-[10px] md:text-base  text-white bg-slate-500 hover:bg-slate-400"
           onClick={
             isLoggedIn ? handleSignOut : () => router.push("/auth/login")
           }
