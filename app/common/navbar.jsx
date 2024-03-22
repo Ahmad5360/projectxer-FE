@@ -17,7 +17,7 @@ function Navbar() {
   };
 
   return (
-    <div className="bg-white shadow-md">
+    <div className="bg-white shadow-md sticky top-0 z-50">
       <div className="md:w-[calc(100%-100px)] md:mx-auto mx-2 flex justify-between md:py-3 py-2 items-center">
         <div className="md:w-32 w-16">
           <Link href={"/"}>

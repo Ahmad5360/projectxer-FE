@@ -44,7 +44,7 @@ function SignupPage() {
   };
   return (
     <div>
-      <div className="flex mt-8 rounded-md sm:w-[500px] w-[380px] mx-auto shadow-md bg-white p-6">
+      <div className="flex mt-8 rounded-md max-w-[500px] w-full mx-auto shadow-md bg-white p-4 sm:p-6">
         <Formik
           initialValues={{
             name: "",
