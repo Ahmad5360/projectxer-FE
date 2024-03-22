@@ -1,16 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   DatabaseX,
   FileEarmark,
   FileEarmarkArrowDown,
   FileEarmarkCheck,
+  Trash,
   Trash3,
+  X,
 } from "react-bootstrap-icons";
 import Select from "react-dropdown-select";
 
 function Dashboard() {
+  const [conformdelete, setDelete] = useState(null);
   const Data = [
     {
       id: 1,
@@ -100,6 +103,54 @@ function Dashboard() {
 
   return (
     <div>
+      {conformdelete && (
+        <div
+          onClick={() => setDelete(false)}
+          className={`
+          fixed inset-0 flex justify-center items-center transition-colors
+           bg-black/30 z-50
+        `}
+        >
+          {/* modal */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className={`
+            bg-white rounded-xl shadow p-6 transition-all
+            ${conformdelete ? "scale-100 opacity-100" : "scale-125 opacity-0"}
+          `}
+          >
+            <button
+              onClick={() => setDelete(false)}
+              className="text-lg absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-100 hover:text-gray-600"
+            >
+              <X size={26} />
+            </button>
+            <div className="text-center w-56">
+              <Trash size={56} className="mx-auto text-red-500" />
+              <div className="mx-auto my-4 w-56">
+                <h3 className="text-lg font-black text-gray-800">
+                  Confirm Delete
+                </h3>
+                <p className="text-sm text-gray-500">
+                  Are you sure you want to delete this item?
+                </p>
+              </div>
+              <div className="flex gap-4">
+                <button className="btn btn-danger w-full hover:bg-gray-100 px-4 py-2 rounded-md">
+                  Delete
+                </button>
+                <button
+                  className="btn btn-light w-full hover:bg-gray-100 px-4 py-2 rounded-md"
+                  onClick={() => setDelete(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex mx-2 md:mx-0 justify-between sm:items-center py-6 mt-2">
         <div className="flex flex-col sm:flex-row gap-4 items-center">
           <p className="font-semibold text-center text-2xl">Select Tool</p>
@@ -133,7 +184,7 @@ function Dashboard() {
           <input id="fileInput" name="file" type="file" className="hidden" />
         </div>
       </div>
-      <div className="overflow-x-auto md:mx-0 mx-2">
+      <div className="overflow-x-auto md:mx-0 mx-2 ">
         <div className="overflow-x-auto w-full">
           <table className="w-full bg-white border border-solid border-gray-300 mb-4 ">
             <thead className="bg-[#f7e5ff48]  border-b border-solid border-gray-300">
@@ -207,7 +258,13 @@ function Dashboard() {
                             Original
                           </button>
                         </div>
-                        <button className="rounded-md px-3 py-2 text-white text-sm md:text-base bg-red-500 flex gap-2 items-center hover:bg-red-400">
+                        <button
+                          type="button"
+                          className="rounded-md px-3 py-2 text-white text-sm md:text-base bg-red-500 flex gap-2 items-center hover:bg-red-400"
+                          onClick={() => {
+                            setDelete(true);
+                          }}
+                        >
                           <Trash3 />
                           Delete
                         </button>
