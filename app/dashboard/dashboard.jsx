@@ -5,77 +5,62 @@ import React from "react";
 
 function Dashboard() {
   const route = useRouter();
+
+  const toolsInfo = [
+    {
+      image: "/tool3.png",
+      title: "Convert PV = EV",
+      link: "conversionTools/pvtoev",
+      para: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates porro delectus qui cum nihil, dolorem sit dicta deserunt! Esse doloribus vitae consectetur dicta ut illum eaque amet iure ex alias.",
+    },
+    {
+      image: "/tool4.png",
+      title: "Remove Redundant Relationships",
+      link: "conversionTools/rrr",
+      para: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates porro delectus qui cum nihil, dolorem sit dicta deserunt! Esse doloribus vitae consectetur dicta ut illum eaque amet iure ex alias.",
+    },
+    {
+      image: "/tool5.png",
+      title: "Solve out of Sequence Activities",
+      link: "conversionTools/soos",
+      para: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates porro delectus qui cum nihil, dolorem sit dicta deserunt! Esse doloribus vitae consectetur dicta ut illum eaque amet iure ex alias.",
+    },
+    {
+      image: "/tool6.png",
+      title: "Dangling Activity Detector and Solver",
+      link: "conversionTools/dads",
+      para: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates porro delectus qui cum nihil, dolorem sit dicta deserunt! Esse doloribus vitae consectetur dicta ut illum eaque amet iure ex alias.",
+    },
+  ];
   return (
     <div>
-      <div>
-        <p className="text-3xl px-3 text-[#576d7e] text-center py-10 font-bold md:text-3xl">
-          Here are your converstions you can perform
+      <div className="py-14">
+        <p className="text-3xl px-3 text-[#576d7e] text-center py-1 font-semibold md:text-3xl">
+          Explore Our Comprehensive Suite of Conversion Tools
+        </p>
+        <p className="text-md px-3 text-[#576d7e] text-center  md:text-lg">
+          Effortlessly Convert Files Across Multiple Formats for Streamlined
+          Productivity
         </p>
       </div>
-      <div className="grid grid-cols-3 gap-8 mb-4">
-        <div
-          className="p-6 rounded-md bg-white shadow-md cursor-pointer"
-          onClick={() => route.push("/pvtoev")}
-        >
-          <div>
-            <img src="/tool3.png" className="object-fill" />
+      <div className="grid grid-cols-3 gap-6 mb-4">
+        {toolsInfo.map((info, index) => (
+          <div
+            className="p-6 rounded-md bg-white hover:shadow-lg shadow-md cursor-pointer w-[95%] mx-auto "
+            onClick={() => route.push(info.link)}
+            key={index}
+          >
+            <div>
+              <img src={info.image} className="object-fill" />
+            </div>
+            <div className="py-2">
+              <p className="font-semibold text-xl hover:text-blue-600">
+                {info.title}
+              </p>
+              <p className="text-sm">{info.para}</p>
+            </div>
           </div>
-          <div className="py-2">
-            <p className="font-semibold text-xl hover:text-blue-600">
-              Convert PV = EV{" "}
-            </p>
-            <p className="text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptates porro delectus qui cum nihil, dolorem sit dicta
-              deserunt! Esse doloribus vitae consectetur dicta ut illum eaque
-              amet iure ex alias.
-            </p>
-          </div>
-        </div>
-        <div className="p-6 rounded-md bg-white shadow-md cursor-pointer">
-          <div>
-            <img src="/tool4.png" className="object-fill" />
-          </div>
-          <div className="py-2">
-            <p className="font-semibold text-xl">
-              Remove Redundant Relationships{" "}
-            </p>
-            <p className="text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptates porro delectus qui cum nihil, dolorem sit dicta
-              deserunt! Esse doloribus vitae consectetur dicta ut illum eaque
-              amet iure ex alias.
-            </p>
-          </div>
-        </div>
-        <div className="p-6 rounded-md bg-white shadow-md cursor-pointer">
-          <div>
-            <img src="/tool3.png" className="object-fill" />
-          </div>
-          <div className="py-2">
-            <p className="font-semibold text-xl">Convert PV = EV </p>
-            <p className="text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptates porro delectus qui cum nihil, dolorem sit dicta
-              deserunt! Esse doloribus vitae consectetur dicta ut illum eaque
-              amet iure ex alias.
-            </p>
-          </div>
-        </div>
-        <div className="p-6 rounded-md bg-white shadow-md cursor-pointer">
-          <div>
-            <img src="/tool3.png" className="object-fill" />
-          </div>
-          <div className="py-2">
-            <p className="font-semibold text-xl">Convert PV = EV </p>
-            <p className="text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptates porro delectus qui cum nihil, dolorem sit dicta
-              deserunt! Esse doloribus vitae consectetur dicta ut illum eaque
-              amet iure ex alias.
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

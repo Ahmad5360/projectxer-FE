@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import {
+  CloudArrowUp,
   DatabaseX,
   FileEarmark,
   FileEarmarkArrowDown,
@@ -11,9 +12,11 @@ import {
   X,
 } from "react-bootstrap-icons";
 import Select from "react-dropdown-select";
+import withAuth from "@/app/common/withAuth";
 
-function Pvtoev() {
-    const [conformdelete, setDelete] = useState(null);
+function PvToEvPage() {
+  const [conformdelete, setDelete] = useState(null);
+  const [fileUploadpop, setfileUploadpop] = useState(null);
 
   const Data = [
     {
@@ -150,37 +153,69 @@ function Pvtoev() {
           </div>
         </div>
       )}
-      <div className="flex mx-2 md:mx-0 justify-between sm:items-center py-6 mt-2">
-        <div className="flex flex-col sm:flex-row gap-4 items-center">
-          <p className="font-semibold text-center text-2xl">Select Tool</p>
-          <div className="w-28 -ml-4 sm:ml-0">
-            <Select
-              options={[
-                {
-                  label: "PV = EV",
-                  value: "pv=ev",
-                },
-                {
-                  label: "SOOS",
-                  value: "soos",
-                },
-              ]}
-              separator={true}
-              placeholder="Select"
-              style={{
-                backgroundColor: "#fff",
-              }}
-            />
+      {fileUploadpop && (
+        <div
+          onClick={() => setfileUploadpop(false)}
+          className={`
+          fixed inset-0 flex justify-center items-center transition-colors
+           bg-black/30 z-50
+        `}
+        >
+          {/* modal */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className={`
+            bg-white mx-3 md:mx-0 rounded-xl shadow p-6 transition-all w-[800px]
+            ${fileUploadpop ? "scale-100 opacity-100" : "scale-125 opacity-0"}
+          `}
+          >
+            <button
+              onClick={() => setDelete(false)}
+              className="text-lg absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-100 hover:text-gray-600"
+            >
+              <X size={26} />
+            </button>
+            <div className="">
+              <h2 className="text-xl py-4 font-semibold">Upload Your File Here :</h2>
+              <label htmlFor="fileInput" className="cursor-pointer">
+                <div className="mt-2">
+                  <div className="bg-slate-300 rounded-lg border border-dashed border-black flex justify-center items-center p-10">
+                    <div className="text-center">
+                      <div className="flex justify-center">
+                        <CloudArrowUp size={64} className="text-slate-500" />
+                      </div>
+                      <div className="py-4">
+                        <p className="text-lg">Drag and Drop Files Here</p>
+                        <p className="py-2">or</p>
+                      </div>
+                      <label
+                        htmlFor="fileInput"
+                        className="rounded-md px-5 py-2 text-base text-white bg-slate-500 cursor-pointer hover:bg-slate-400"
+                      >
+                        Browse Files
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <input
+                  id="fileInput"
+                  name="file"
+                  type="file"
+                  className="hidden"
+                />
+              </label>
+            </div>
           </div>
         </div>
-        <div className="mt-2 sm:mt-0">
-          <label
-            htmlFor="fileInput"
-            className="rounded-md sm:px-5 px-3 py-2 text-xs sm:text-base text-white bg-slate-500 cursor-pointer hover:bg-slate-400"
-          >
+      )}
+      <div className="pt-8 pb-6 flex justify-between items-center">
+        <p className="text-3xl text-[#576d7e] font-semibold md:text-3xl">
+          Conversion Tool Name
+        </p>
+        <div className="mt-2 sm:mt-0" onClick={() => setfileUploadpop(true)}>
+          <p className="rounded-md sm:px-5 px-3 py-2 text-xs sm:text-base text-white bg-slate-500 cursor-pointer hover:bg-slate-400">
             Upload
-          </label>
-          <input id="fileInput" name="file" type="file" className="hidden" />
+          </p>
         </div>
       </div>
       <div className="overflow-x-auto md:mx-0 mx-2 ">
@@ -291,7 +326,7 @@ function Pvtoev() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Pvtoev
+export default withAuth(PvToEvPage, { requireAuth: true });

@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "./common/navbar";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "./auth/authProvider/AuthContext";
+import Footer from "./common/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,13 +18,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      
       <body className={inter.className}>
-      <link rel="icon" href="/logo.png" sizes="any" />
+        <link rel="icon" href="/logo.png" sizes="any" />
         <AuthProvider>
-          <div>
+          <div className="flex flex-col h-screen justify-between">
             <Navbar />
-            <div className="md:w-[calc(100%-100px)] mx-2 md:mx-auto">{children}</div>
+            <div className="md:w-[calc(100%-100px)] mx-2 md:mx-auto mb-auto">
+              {children}
+            </div>
+            {/* <Footer /> */}
           </div>
         </AuthProvider>
         <ToastContainer />
