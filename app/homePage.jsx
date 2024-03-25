@@ -47,6 +47,12 @@ function HomePage() {
               <div>
                 <img src="/tool6.png" />
               </div>
+              <div>
+                <img src="/tool7.png" />
+              </div>
+              <div>
+                <img src="/tool8.png" />
+              </div>
             </div>
             <div className="w-1/2 mx-auto flex justify-center items-center">
               <img src="/tool_last.png" />
