@@ -46,7 +46,7 @@ function Dashboard() {
       <div className="grid grid-cols-3 gap-6 mb-4">
         {toolsInfo.map((info, index) => (
           <div
-            className="p-6 rounded-md bg-white hover:shadow-lg shadow-md cursor-pointer w-[95%] mx-auto "
+            className="p-6 rounded-lg bg-white hover:shadow-lg shadow-md cursor-pointer w-[95%] mx-auto "
             onClick={() => route.push(info.link)}
             key={index}
           >

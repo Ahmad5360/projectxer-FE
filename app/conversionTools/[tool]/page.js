@@ -170,13 +170,15 @@ function PvToEvPage() {
           `}
           >
             <button
-              onClick={() => setDelete(false)}
+              onClick={() => setfileUploadpop(false)}
               className="text-lg absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-100 hover:text-gray-600"
             >
               <X size={26} />
             </button>
             <div className="">
-              <h2 className="text-xl py-4 font-semibold">Upload Your File Here :</h2>
+              <h2 className="text-xl py-4 font-semibold">
+                Upload Your File Here :
+              </h2>
               <label htmlFor="fileInput" className="cursor-pointer">
                 <div className="mt-2">
                   <div className="bg-slate-300 rounded-lg border border-dashed border-black flex justify-center items-center p-10">
@@ -204,6 +206,11 @@ function PvToEvPage() {
                   className="hidden"
                 />
               </label>
+            </div>
+            <div className="flex pt-4">
+              <button className="rounded-md w-full md:px-5 px-4 md:py-2 py-1 text-[10px] md:text-base  text-white bg-slate-500 hover:bg-slate-400">
+                Submit
+              </button>
             </div>
           </div>
         </div>
