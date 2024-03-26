@@ -2,8 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./common/navbar";
 import { ToastContainer } from "react-toastify";
-import { AuthProvider } from "./auth/authProvider/AuthContext";
 import Footer from "./common/footer";
+import { Providers } from "./redux/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +20,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <link rel="icon" href="/logo.png" sizes="any" />
-        <AuthProvider>
+
+        <Providers>
           <div className="flex flex-col h-screen justify-between">
             <Navbar />
             <div className="md:w-[calc(100%-100px)] mx-2 md:mx-auto mb-auto">
@@ -28,7 +29,8 @@ export default function RootLayout({ children }) {
             </div>
             {/* <Footer /> */}
           </div>
-        </AuthProvider>
+        </Providers>
+
         <ToastContainer />
       </body>
     </html>

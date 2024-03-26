@@ -7,13 +7,16 @@ import React, { useContext, useState } from "react";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import withAuth from "@/app/common/withAuth";
-import { AuthContext } from "../authProvider/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "@/app/redux/userSlice";
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { isLoggedIn, login, logout } = useContext(AuthContext);
+  const token = useSelector((state) => state.user?.token);
+  const dispatch = useDispatch();
+  // const token = useSelector((state) => state.user?.user?.token);
 
   const onSuccess = (res) => {
     console.log(res);
@@ -40,8 +43,7 @@ function LoginPage() {
 
   const handleSubmit = (values, { resetForm }) => {
     // console.log(values);
-    localStorage.setItem("token","1234");
-    login();
+    dispatch(login({ token: "1234" }));
     router.push("/dashboard");
   };
   return (
@@ -159,4 +161,4 @@ function LoginPage() {
   );
 }
 
-export default  withAuth(LoginPage, { requireAuth: false });;
+export default withAuth(LoginPage, { requireAuth: false });

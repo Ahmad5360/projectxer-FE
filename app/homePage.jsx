@@ -13,8 +13,8 @@ function HomePage() {
             <img alt="image1" src="/logo.png" className="w-full" />
           </div>
           <div
-            class="font-bold text-sm text-center md:text-3xl"
-            style={{ textShadow: "rgba(0, 0, 0, 0.6) 1px 2px 7px;" }}
+            className="font-bold text-sm text-center md:text-3xl"
+            style={{ textShadow: "rgba(0, 0, 0, 0.6) 1px 2px 7px" }}
           >
             <div>Project XER will serve as a complete</div>
             <div>
@@ -26,36 +26,36 @@ function HomePage() {
         <div className="md:w-2/5 w-4/5 pb-4 md:pb-0 flex justify-center">
           <div className="w-[90%] mt-4 md:mt-0 mx-auto">
             <div className="w-1/2 mx-auto flex justify-center items-center">
-              <img src="/tools_main.png" />
+              <img src="/tools_main.png" alt="tool" />
             </div>
             <div className="grid grid-cols-2 gap-3 my-4">
               <div>
-                <img src="/tool1.png" />
+                <img src="/tool1.png" alt="tool" />
               </div>
               <div>
-                <img src="/tool2.png" />
+                <img src="/tool2.png" alt="tool" />
               </div>
               <div>
-                <img src="/tool3.png" />
+                <img src="/tool3.png" alt="tool" />
               </div>
               <div>
-                <img src="/tool4.png" />
+                <img src="/tool4.png" alt="tool" />
               </div>
               <div>
-                <img src="/tool5.png" />
+                <img src="/tool5.png" alt="tool" />
               </div>
               <div>
-                <img src="/tool6.png" />
+                <img src="/tool6.png" alt="tool" />
               </div>
               <div>
-                <img src="/tool7.png" />
+                <img src="/tool7.png" alt="tool" />
               </div>
               <div>
-                <img src="/tool8.png" />
+                <img src="/tool8.png" alt="tool" />
               </div>
             </div>
             <div className="w-1/2 mx-auto flex justify-center items-center">
-              <img src="/tool_last.png" />
+              <img src="/tool_last.png" alt="tool" />
             </div>
           </div>
         </div>

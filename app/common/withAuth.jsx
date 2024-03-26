@@ -1,50 +1,37 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/userSlice";
 import Loader from "./loader";
 
-// import jwtDecode from "jwt-decode";
-
-// import { options as sidebarOptions } from "../constant/sidebarOptions";
 const withAuth = (WrappedComponent, options = {}) => {
   const AuthComponent = (props) => {
     const router = useRouter();
-    const token = localStorage.getItem("token");
-    
-    const pathname = usePathname();
+    const token = useSelector((state) => state.user?.user?.token);
+    const dispatch = useDispatch();
 
-   
     useEffect(() => {
-    //   const isTokenExpired = (token) => {
-    //     if (!token) return true;
-    //     const decodedToken = jwtDecode(token);
-    //     const currentTime = Date.now() / 1000;
-    //     return decodedToken.exp < currentTime;
-    //   };
-
-    //   const redirectToRoleDashboard = () => {
-    //     if (
-    //       accessRole.toLowerCase() === "admin" ||
-    //       accessRole.toLowerCase() === "manager" ||
-    //       accessRole.toLowerCase() === "agent"
-    //     )
-    //       router.replace("/admin");
-    //     else router.replace("/");
-    //   };
+      // const isTokenExpired = (token) => {
+      //   if (!token) return true;
+      //   const decodedToken = jwtDecode(token);
+      //   const currentTime = Date.now() / 1000;
+      //   return decodedToken.exp < currentTime;
+      // };
 
       if (options.requireAuth) {
         if (!token) {
-        //   dispatch(logout());
+          
           router.push("/");
-        } 
-        
-      } 
-    }, [token, pathname]);
+        }
+      }
+    }, [token]);
 
-    return (options.requireAuth && !token) ||
-      (!options.requireAuth && token) ? (
-        router.push("/dashboard")
+    return options.requireAuth && !token ? (
+      <Loader />
     ) : (
       <WrappedComponent {...props} />
     );

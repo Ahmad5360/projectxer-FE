@@ -1,10 +1,11 @@
 "use client";
 
+
 import { useRouter } from "next/navigation";
 import React from "react";
 
 function Dashboard() {
-  const route = useRouter();
+  const router = useRouter();
 
   const toolsInfo = [
     {
@@ -32,6 +33,7 @@ function Dashboard() {
       para: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates porro delectus qui cum nihil, dolorem sit dicta deserunt! Esse doloribus vitae consectetur dicta ut illum eaque amet iure ex alias.",
     },
   ];
+
   return (
     <div>
       <div className="py-14">
@@ -47,11 +49,11 @@ function Dashboard() {
         {toolsInfo.map((info, index) => (
           <div
             className="p-6 rounded-lg bg-white hover:shadow-lg shadow-md cursor-pointer w-[95%] mx-auto "
-            onClick={() => route.push(info.link)}
+            onClick={() => router.push(info.link)}
             key={index}
           >
             <div>
-              <img src={info.image} className="object-fill" />
+              <img src={info.image} alt={"image" + index + 1} className="object-fill" />
             </div>
             <div className="py-2">
               <p className="font-semibold text-xl hover:text-blue-600">

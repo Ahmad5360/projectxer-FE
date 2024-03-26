@@ -1,17 +1,21 @@
 "use client";
 
 import withAuth from "@/app/common/withAuth";
+import { signup } from "@/app/redux/userSlice";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 
 function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
+
 
   const onSuccess = (res) => {
     console.log(res);
@@ -38,8 +42,7 @@ function SignupPage() {
 
   const handleSubmit = (values, { resetForm }) => {
     // console.log(values);
-    localStorage.setItem("token", "1234");
-    login();
+    dispatch(signup({ token: "1234" }));
     router.push("/auth/login");
   };
   return (
