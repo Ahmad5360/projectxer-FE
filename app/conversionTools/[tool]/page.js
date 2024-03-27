@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CloudArrowUp,
   DatabaseX,
@@ -13,11 +13,15 @@ import {
 } from "react-bootstrap-icons";
 import Select from "react-dropdown-select";
 import withAuth from "@/app/common/withAuth";
+import { usePathname } from "next/navigation";
 
 function PvToEvPage() {
   const [conformdelete, setDelete] = useState(null);
   const [fileUploadpop, setfileUploadpop] = useState(null);
-
+  const [toolName, settoolName] = useState(null);
+  const [fileallowed, setfileallowed] = useState(null);
+  const pathname = usePathname();
+  const lastPart = pathname.split("/").pop();
   const Data = [
     {
       id: 1,
@@ -104,6 +108,34 @@ function PvToEvPage() {
       serviceType: "Type K",
     },
   ];
+
+  useEffect(() => {
+    if (lastPart === "pvtoev") {
+      settoolName("PV to EV Conversion");
+    } else if (lastPart === "soos") {
+      settoolName("Solve out of Sequence Activities");
+    } else if (lastPart === "x-pobs") {
+      settoolName("X-POBS");
+    } else if (lastPart === "x-risktype") {
+      settoolName("X-RISKTYPE");
+    } else if (lastPart === "rrr") {
+      settoolName("Remove Redundant Relationships");
+    } else if (lastPart === "dads") {
+      settoolName("Dangling Activity Detector and Solver");
+    } else if (lastPart === "cpd") {
+      settoolName("Critical Path Drag");
+    }
+
+    if (
+      lastPart === "pvtoev" ||
+      lastPart === "soos" ||
+      lastPart === "x-pobs" ||
+      lastPart === "x-risktype"
+    )
+      setfileallowed(".xer");
+    else setfileallowed(".xlsx");
+  }, []);
+
   return (
     <div>
       {conformdelete && (
@@ -173,7 +205,7 @@ function PvToEvPage() {
               onClick={() => setfileUploadpop(false)}
               className="text-lg absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-100 hover:text-gray-600"
             >
-              <X size={26} />
+              <X size={32} />
             </button>
             <div className="">
               <h2 className="text-xl py-4 font-semibold">
@@ -186,9 +218,10 @@ function PvToEvPage() {
                       <div className="flex justify-center">
                         <CloudArrowUp size={64} className="text-slate-500" />
                       </div>
-                      <div className="py-4">
-                        <p className="text-lg">Drag and Drop Files Here</p>
-                        <p className="py-2">or</p>
+                      <div className="pb-4">
+                        <p className="text-lg font-light">
+                          Click here to select file
+                        </p>
                       </div>
                       <label
                         htmlFor="fileInput"
@@ -203,6 +236,7 @@ function PvToEvPage() {
                   id="fileInput"
                   name="file"
                   type="file"
+                  accept={fileallowed}
                   className="hidden"
                 />
               </label>
@@ -217,7 +251,7 @@ function PvToEvPage() {
       )}
       <div className="pt-8 pb-6 flex justify-between items-center">
         <p className="text-3xl text-[#576d7e] font-semibold md:text-3xl">
-          Conversion Tool Name
+          {toolName ? toolName : ""}
         </p>
         <div className="mt-2 sm:mt-0" onClick={() => setfileUploadpop(true)}>
           <p className="rounded-md sm:px-5 px-3 py-2 text-xs sm:text-base text-white bg-slate-500 cursor-pointer hover:bg-slate-400">

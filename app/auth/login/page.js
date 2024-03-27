@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "@/app/redux/userSlice";
 import { userSignin } from "@/app/apis";
 import Loader from "@/app/common/loader";
+import { toast } from "react-toastify";
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -52,10 +53,12 @@ function LoginPage() {
         setResponse(response.data);
         setLoading(false);
         setError(null);
+        toast.success(response.data.message);
         dispatch(login(response.data));
         router.push("/dashboard");
       })
       .catch((error) => {
+        toast.error(error.response.data.message);
         setError(error.response.data.message);
         setLoading(false);
         setResponse(null);
