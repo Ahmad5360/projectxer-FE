@@ -10,7 +10,6 @@ function Navbar() {
   const router = useRouter();
   const token = useSelector((state) => state.user?.user?.token);
   const dispatch = useDispatch();
-  
 
   const handleSignOut = () => {
     dispatch(logout());
@@ -18,11 +17,9 @@ function Navbar() {
     router.push("/auth/login");
   };
 
-  
-
   return (
     <div className="bg-white shadow-md sticky top-0 z-50">
-      <div className="md:w-[calc(100%-100px)] md:mx-auto mx-2 flex justify-between md:py-3 py-2 items-center">
+      <div className="md:w-[calc(100%-100px)] md:mx-auto mx-2 flex justify-between py-2 items-center">
         <div className="md:w-32 w-16">
           <Link href={"/"}>
             <img
@@ -32,12 +29,22 @@ function Navbar() {
             />
           </Link>
         </div>
-        <button
-          className="rounded-md md:px-5 px-4 md:py-2 py-1 text-[10px] md:text-base  text-white bg-slate-500 hover:bg-slate-400"
-          onClick={token ? handleSignOut : () => router.push("/auth/login")}
-        >
-          {token ? "Sign Out" : "Sign in"}
-        </button>
+        <div className="flex items-center gap-2">
+          {token && (
+            <button
+              className="rounded-md md:px-5 px-4 md:py-2 py-1 text-[10px] md:text-sm  text-white bg-slate-500 hover:bg-slate-400"
+              onClick={() => router.push("/dashboard")}
+            >
+              Dashboard
+            </button>
+          )}
+          <button
+            className="rounded-md md:px-5 px-4 md:py-2 py-1 text-[10px] md:text-sm  text-white bg-slate-500 hover:bg-slate-400"
+            onClick={token ? handleSignOut : () => router.push("/auth/login")}
+          >
+            {token ? "Sign Out" : "Sign in"}
+          </button>
+        </div>
       </div>
     </div>
   );

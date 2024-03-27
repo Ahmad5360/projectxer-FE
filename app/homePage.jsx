@@ -7,7 +7,7 @@ function HomePage() {
       <div className="text-3xl px-3 text-[#576d7e] text-center italic pt-6 font-bold md:text-4xl">
         Welcome to the world of possibilities!
       </div>
-      <div className=" flex flex-col w-[100%] mt-6 items-center justify-center md:flex-row md:mt-10">
+      <div className=" flex flex-col w-[100%] my-6 items-center justify-center md:flex-row md:mt-10">
         <div className="md:w-3/5 w-full flex flex-col items-center justify-center">
           <div className=" w-3/4 md:w-[70%] mx-auto">
             <img alt="image1" src="/logo.png" className="w-full" />
@@ -52,6 +52,9 @@ function HomePage() {
               </div>
               <div>
                 <img src="/tool8.png" alt="tool" />
+              </div>
+              <div>
+                <img src="/tool9.png" alt="tool" />
               </div>
             </div>
             <div className="w-1/2 mx-auto flex justify-center items-center">
