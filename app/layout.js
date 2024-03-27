@@ -1,7 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./common/navbar";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Footer from "./common/footer";
 import { Providers } from "./redux/provider";
 
@@ -20,7 +21,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <link rel="icon" href="/logo.png" sizes="any" />
-
         <Providers>
           <div className="flex flex-col h-screen justify-between">
             <Navbar />

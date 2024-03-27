@@ -1,5 +1,6 @@
 "use client";
 
+import { userSignup } from "@/app/apis";
 import withAuth from "@/app/common/withAuth";
 import { signup } from "@/app/redux/userSlice";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
@@ -8,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import * as Yup from "yup";
 
 function SignupPage() {
@@ -15,7 +17,8 @@ function SignupPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
-
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
 
   const onSuccess = (res) => {
     console.log(res);
@@ -41,9 +44,22 @@ function SignupPage() {
   };
 
   const handleSubmit = (values, { resetForm }) => {
-    // console.log(values);
-    dispatch(signup({ token: "1234" }));
-    router.push("/auth/login");
+    setLoading(true);
+    userSignup(values)
+      .then((response) => {
+        setResponse(response.data);
+        setLoading(false);
+        setError(null);
+        toast.success(response.data.message);
+        dispatch(signup(response.data));
+        router.push("/auth/login");
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        setError(error.response.data.message);
+        setLoading(false);
+        setResponse(null);
+      });
   };
   return (
     <div>
@@ -53,7 +69,6 @@ function SignupPage() {
             name: "",
             email: "",
             password: "",
-            
           }}
           validationSchema={Yup.object({
             name: Yup.string().required("Name is required"),
@@ -65,7 +80,7 @@ function SignupPage() {
           {({ values, setValues, setFieldValue }) => (
             <Form className="w-full">
               <p className="font-semibold text-2xl text-slate-900">
-               Create Your Account
+                Create Your Account
               </p>
               <div className="my-4">
                 <div>
@@ -141,12 +156,13 @@ function SignupPage() {
                   </div>
                 </div>
               </div>
-              
+
               <button
                 type="submit"
+                disabled={loading}
                 className="text-center py-2 bg-blue-700 w-full text-white rounded-md font-semibold hover:shadow-blue-600 shadow-md"
               >
-                Create Account
+                {loading ? "Creating Your Account ..." : "Create Account"}
               </button>
               <div className="flex gap-1 py-4">
                 <p className="font-semibold">Already a member?</p>

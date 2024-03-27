@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import withAuth from "@/app/common/withAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "@/app/redux/userSlice";
+import { userSignin } from "@/app/apis";
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,6 +17,8 @@ function LoginPage() {
   const router = useRouter();
   const token = useSelector((state) => state.user?.token);
   const dispatch = useDispatch();
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
   // const token = useSelector((state) => state.user?.user?.token);
 
   const onSuccess = (res) => {
@@ -42,9 +45,20 @@ function LoginPage() {
   };
 
   const handleSubmit = (values, { resetForm }) => {
-    // console.log(values);
-    dispatch(login({ token: "1234" }));
-    router.push("/dashboard");
+    setLoading(true);
+    userSignin(values)
+      .then((response) => {
+        setResponse(response.data);
+        setLoading(false);
+        setError(null);
+        dispatch(login(response.data));
+        router.push("/dashboard");
+      })
+      .catch((error) => {
+        setError(error.response.data.message);
+        setLoading(false);
+        setResponse(null);
+      });
   };
   return (
     <div>
@@ -138,9 +152,10 @@ function LoginPage() {
               </div>
               <button
                 type="submit"
+                disabled={loading}
                 className="text-center py-2 bg-blue-700 w-full text-white rounded-md font-semibold hover:shadow-blue-600 shadow-md"
               >
-                Login to your account
+                {loading ? "Loging in..." : "Login to your account"}
               </button>
               <div className="flex gap-1 py-4">
                 <p className="font-semibold">Not registered?</p>
