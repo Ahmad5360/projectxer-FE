@@ -1,13 +1,13 @@
 "use-client";
 
-import React from 'react'
-
+import React from "react";
+import "./loader.css";
 function Loader() {
   return (
-    <div className='flex items-center justify-center pt-14'>
-      <p className='text-2xl'>Loading...</p>
+    <div className="flex justify-center items-center h-[calc(100vh-150px)]">
+      <div className="loader"></div>
     </div>
-  )
+  );
 }
 
-export default Loader
+export default Loader;
