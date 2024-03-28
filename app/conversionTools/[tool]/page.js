@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import {
   CloudArrowUp,
   DatabaseX,
-  FileEarmark,
   FileEarmarkArrowDown,
   FileEarmarkCheck,
   Trash,
@@ -249,8 +248,8 @@ function PvToEvPage() {
           </div>
         </div>
       )}
-      <div className="pt-8 pb-6 flex justify-between items-center">
-        <p className="text-3xl text-[#576d7e] font-semibold md:text-3xl">
+      <div className="pt-8 pb-6 md:mx-0 mx-2 flex justify-between items-center md:mt-8">
+        <p className="text-xl text-[#576d7e] font-semibold md:text-3xl">
           {toolName ? toolName : ""}
         </p>
         <div className="mt-2 sm:mt-0" onClick={() => setfileUploadpop(true)}>
@@ -353,7 +352,7 @@ function PvToEvPage() {
               <tbody>
                 <tr>
                   <td colSpan="6" className="text-center py-6">
-                    <p className="text-gray-500 text-2xl flex items-center justify-center gap-2">
+                    <p className="text-gray-500 text-xl md:text-2xl flex items-center justify-center gap-2">
                       <span>
                         <DatabaseX />
                       </span>

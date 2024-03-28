@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <div className="flex flex-col h-screen justify-between">
             <Navbar />
-            <div className="md:w-[calc(100%-100px)] mx-2 md:mx-auto mb-auto">
+            <div className="md:w-[calc(100%-100px)] mx-2 md:mx-auto mb-auto mt-14">
               {children}
             </div>
             {/* <Footer /> */}

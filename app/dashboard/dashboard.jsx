@@ -58,10 +58,10 @@ function Dashboard() {
   return (
     <div className="pb-10">
       <div className="py-14">
-        <p className="text-3xl px-3 text-[#576d7e] text-center py-1 font-semibold md:text-3xl">
+        <p className="text-2xl px-3 text-[#576d7e] text-center py-1 font-semibold md:text-3xl">
           Explore Our Comprehensive Suite of Conversion Tools
         </p>
-        <p className="text-md px-3 text-[#576d7e] text-center  md:text-lg">
+        <p className="px-3 text-[#576d7e] text-center  md:text-lg">
           Effortlessly Convert Files Across Multiple Formats for Streamlined
           Productivity
         </p>
@@ -70,7 +70,7 @@ function Dashboard() {
         <div className="w-[calc(100%-24px)] mx-auto text-xl text-[#576d7e] font-medium md:text-2xl">
           <p>Using XER Files</p>
         </div>
-        <div className="grid grid-cols-3 gap-6 my-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-4">
           {XERtoolsInfo.map((info, index) => (
             <div
               className="p-6 rounded-lg bg-white hover:shadow-lg shadow-md cursor-pointer w-[95%] mx-auto "
@@ -98,7 +98,7 @@ function Dashboard() {
         <div className="w-[calc(100%-24px)] mx-auto text-xl text-[#576d7e] font-medium md:text-2xl">
           <p>Using Excel Files</p>
         </div>
-        <div className="grid grid-cols-3 gap-6 my-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-4">
           {excelstoolsInfo.map((info, index) => (
             <div
               className="p-6 rounded-lg bg-white hover:shadow-lg shadow-md cursor-pointer w-[95%] mx-auto "
