@@ -4,7 +4,7 @@ import withAuth from "./common/withAuth";
 function HomePage() {
   return (
     <div>
-      <div className="text-3xl px-3 text-[#576d7e] text-center italic pt-6 font-bold md:text-4xl">
+      <div className="text-3xl md:mt-8 px-3 text-[#576d7e] text-center italic pt-6 font-bold md:text-4xl">
         Welcome to the world of possibilities!
       </div>
       <div className=" flex flex-col w-[100%] my-6 items-center justify-center md:flex-row md:mt-10">
