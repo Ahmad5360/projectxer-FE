@@ -18,8 +18,8 @@ function HomePage() {
           >
             <div>Project XER will serve as a complete</div>
             <div>
-              Primavera P6 Schedule Analytics tool for
-              Planning/Scheduling/Project Controls Engineers &amp; Managers
+              Primavera P6 Schedule Analytics tool tailored for
+              Planning, Scheduling, Project Controls Engineers, &amp; Managers
             </div>
           </div>
         </div>
