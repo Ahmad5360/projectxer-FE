@@ -5,6 +5,7 @@ import React from "react";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/userSlice";
+import Image from "next/image";
 
 function Navbar() {
   const router = useRouter();
@@ -22,7 +23,9 @@ function Navbar() {
       <div className="md:w-[calc(100%-100px)] md:mx-auto mx-2 flex justify-between py-2 items-center">
         <div className="md:w-32 w-16">
           <Link href={"/"}>
-            <img
+            <Image
+              width="500"
+              height="500"
               src={"/logo.png"}
               alt="logo"
               className="object-cover w-full h-full"
