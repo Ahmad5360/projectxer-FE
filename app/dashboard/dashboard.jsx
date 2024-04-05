@@ -79,10 +79,13 @@ function Dashboard() {
               key={index}
             >
               <div>
-                <img
+                <Image 
+                  width={0}
+                  height={0}
+                  sizes="100vw"
                   src={info.image}
                   alt={"image" + index + 1}
-                  className="object-fill"
+                  className="object-fill w-full"
                 />
               </div>
               <div className="py-2">

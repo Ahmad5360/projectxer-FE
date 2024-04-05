@@ -9,8 +9,16 @@ function HomePage() {
       </div>
       <div className=" flex flex-col w-[100%] my-6 items-center justify-center md:flex-row md:mt-10">
         <div className="md:w-3/5 w-full flex flex-col items-center justify-center">
-          <div className=" w-3/4 md:w-[70%] mx-auto relative">
-            <Image alt="image1" src="/logo.png" width="500" height="500" />
+          <div className=" w-3/4 md:w-[70%] mx-auto">
+            <Image
+              alt="image1"
+              className="w-full"
+              src="/logo.png"
+              width={0}
+              height={0}
+              sizes="100vw"
+              
+            />
           </div>
           <div
             className="font-bold text-sm text-center md:text-3xl"
@@ -27,8 +35,10 @@ function HomePage() {
           <div className="w-[90%] mt-4 md:mt-0 mx-auto">
             <div className="w-1/2 mx-auto flex justify-center items-center">
               <Image
-                width="500"
-                height="500"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full"
                 src="/tools_main.png"
                 alt="tool"
               />
