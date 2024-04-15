@@ -35,3 +35,21 @@ export const userSignup = async (signupData) => {
 export const userSignin = async (loginData) => {
   return await instance.post(`/auth/login`, loginData);
 };
+export const convertFile = async (token, data) => {
+  const axiosWithToken = updateInstance(token);
+  return await axiosWithToken.post(`/converter/upload`, data);
+};
+
+export const getFiles = async (token, type) => {
+  const axiosWithToken = updateInstance(token);
+  return await axiosWithToken.get(`/converter/all/${type}`);
+};
+
+export const deleteFiles = async (token, deleteData) => {
+  const axiosWithToken = updateInstance(token);
+  return await axiosWithToken.post(`/converter/delete`, {
+    converted: deleteData.converted,
+    original: deleteData.original,
+    id: deleteData.id,
+  });
+};

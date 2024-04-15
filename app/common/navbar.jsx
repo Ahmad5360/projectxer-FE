@@ -18,6 +18,8 @@ function Navbar() {
     router.push("/auth/login");
   };
 
+  
+
   return (
     <div className="bg-white shadow-md fixed w-full top-0">
       <div className="md:w-[calc(100%-100px)] md:mx-auto mx-2 flex justify-between py-2 items-center">

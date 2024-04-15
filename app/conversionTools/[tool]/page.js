@@ -6,6 +6,7 @@ import {
   DatabaseX,
   FileEarmarkArrowDown,
   FileEarmarkCheck,
+  FileEarmarkText,
   Trash,
   Trash3,
   X,
@@ -13,14 +14,24 @@ import {
 import Select from "react-dropdown-select";
 import withAuth from "@/app/common/withAuth";
 import { usePathname } from "next/navigation";
+import { convertFile, deleteFiles, getFiles } from "@/app/apis";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function PvToEvPage() {
   const [conformdelete, setDelete] = useState(null);
   const [fileUploadpop, setfileUploadpop] = useState(null);
   const [toolName, settoolName] = useState(null);
+  const [processing, setProcessing] = useState(null);
+  const [filesList, setFilesList] = useState([]);
   const [fileallowed, setfileallowed] = useState(null);
+  const [file, setfile] = useState(null);
   const pathname = usePathname();
   const lastPart = pathname.split("/").pop();
+  const [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const token = useSelector((state) => state.user?.user?.token);
   const Data = [
     {
       id: 1,
@@ -133,7 +144,56 @@ function PvToEvPage() {
     )
       setfileallowed(".xer");
     else setfileallowed(".xlsx");
+
+    getFiles(token, lastPart)
+      .then((response) => {
+        setFilesList(response.data.files);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        setResponse(null);
+      });
   }, []);
+
+  const handleSubmit = () => {
+    const formData = new FormData();
+
+    formData.append("file", file);
+    setProcessing(true);
+    convertFile(token, formData)
+      .then((response) => {
+        setfileUploadpop(false);
+        setfile(null);
+
+        setFilesList([...filesList, response.data.converted]);
+        setLoading(false);
+        toast.success(response.data.message);
+        setProcessing(false);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        setProcessing(false);
+        setfileUploadpop(false);
+        setLoading(false);
+        setResponse(null);
+      });
+  };
+  const deleteFile = () => {
+    setLoading(true);
+    deleteFiles(token, deleteId)
+      .then((response) => {
+        const data = filesList.filter((item) => item._id !== deleteId.id);
+        setFilesList(data);
+        setDelete(false);
+        setLoading(false);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        setDelete(false);
+        setLoading(false);
+        setResponse(null);
+      });
+  };
 
   return (
     <div>
@@ -154,7 +214,11 @@ function PvToEvPage() {
           `}
           >
             <button
-              onClick={() => setDelete(false)}
+              onClick={() => {
+                setDelete(false);
+                setfile(null);
+              }}
+              disabled={loading}
               className="text-lg absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-100 hover:text-gray-600"
             >
               <X size={26} />
@@ -170,12 +234,17 @@ function PvToEvPage() {
                 </p>
               </div>
               <div className="flex gap-4">
-                <button className="btn btn-danger w-full hover:bg-gray-100 px-4 py-2 rounded-md">
-                  Delete
+                <button
+                  className="btn btn-danger w-full hover:bg-gray-100 px-4 py-2 rounded-md"
+                  onClick={() => deleteFile()}
+                  disabled={loading}
+                >
+                  {loading ? "Deleting..." : "Delete"}
                 </button>
                 <button
                   className="btn btn-light w-full hover:bg-gray-100 px-4 py-2 rounded-md"
                   onClick={() => setDelete(false)}
+                  disabled={loading}
                 >
                   Cancel
                 </button>
@@ -201,12 +270,15 @@ function PvToEvPage() {
           `}
           >
             <button
-              onClick={() => setfileUploadpop(false)}
+              onClick={() => {
+                setfileUploadpop(false);
+                setfile(null);
+              }}
               className="text-lg absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-100 hover:text-gray-600"
             >
               <X size={32} />
             </button>
-            <div className="">
+            <div className={`${processing ? "pointer-events-none" : ""}`}>
               <h2 className="text-xl py-4 font-semibold">
                 Upload Your File Here :
               </h2>
@@ -214,14 +286,41 @@ function PvToEvPage() {
                 <div className="mt-2">
                   <div className="bg-slate-300 rounded-lg border border-dashed border-black flex justify-center items-center p-10">
                     <div className="text-center">
-                      <div className="flex justify-center">
-                        <CloudArrowUp size={64} className="text-slate-500" />
-                      </div>
-                      <div className="pb-4">
-                        <p className="text-lg font-light">
-                          Click here to select file
-                        </p>
-                      </div>
+                      {file ? (
+                        <div className="flex justify-center py-4">
+                          <div className="flex flex-col justify-center mt-2 w-full">
+                            <div className="relative flex justify-center">
+                              <button
+                                onClick={() => setfile(null)}
+                                className="text-slate-500 top-0 right-0 absolute"
+                              >
+                                <X size={28} />
+                              </button>
+                              <button
+                                // onClick={() => setfileUploadpop(false)}
+                                className="text-slate-500 pt-4"
+                              >
+                                <FileEarmarkText size={64} />
+                              </button>
+                            </div>
+                            <p className="text-sm">{file.name}</p>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="flex justify-center">
+                            <CloudArrowUp
+                              size={64}
+                              className="text-slate-500"
+                            />
+                          </div>
+                          <div className="pb-4">
+                            <p className="text-lg font-light">
+                              Click here to select file
+                            </p>
+                          </div>
+                        </>
+                      )}
                       <label
                         htmlFor="fileInput"
                         className="rounded-md px-5 py-2 text-base text-white bg-slate-500 cursor-pointer hover:bg-slate-400"
@@ -237,12 +336,22 @@ function PvToEvPage() {
                   type="file"
                   accept={fileallowed}
                   className="hidden"
+                  onChange={(e) => {
+                    setfile(e.target.files[0]);
+                  }}
                 />
               </label>
             </div>
+
             <div className="flex pt-4">
-              <button className="rounded-md w-full md:px-5 px-4 md:py-2 py-1 text-[10px] md:text-base  text-white bg-slate-500 hover:bg-slate-400">
-                Submit
+              <button
+                onClick={() => handleSubmit()}
+                disabled={!file}
+                className={`rounded-md w-full md:px-5 px-4 md:py-2 py-1 text-[10px] md:text-base  text-white ${
+                  file ? "bg-slate-500" : "bg-slate-400"
+                } hover:bg-slate-400`}
+              >
+                {processing ? "Processing..." : "Submit"}
               </button>
             </div>
           </div>
@@ -283,10 +392,10 @@ function PvToEvPage() {
                 </th>
               </tr>
             </thead>
-            {!Data && Data.length > 0 ? (
+            {filesList && filesList.length > 0 ? (
               <tbody>
-                {Data &&
-                  Data.map((data, index) => (
+                {filesList &&
+                  filesList.map((data, index) => (
                     <tr
                       key={index}
                       className={`${
@@ -296,19 +405,19 @@ function PvToEvPage() {
                       }`}
                     >
                       <td className=" border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
-                        {data.id}
+                        {index + 1}
                       </td>
                       <td className="border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
                         {data.fileName}
                       </td>
                       <td className="border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
-                        {data.date}
+                        {data.createdAt.split("T")[0]}
                       </td>
                       <td className="border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
                         {data.status}
                       </td>
                       <td className="border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
-                        {data.serviceType}
+                        {data.type}
                       </td>
                       <td className="border-r h-full border-solid border-gray-300 text-center p-3">
                         <div className="flex items-center justify-center md:gap-3 gap-2">
@@ -317,7 +426,16 @@ function PvToEvPage() {
                       after:absolute  after:left-1/2 after:-top-3 after:h-0 after:w-0 after:-translate-x-1/2 after:border-8 after:border-t-gray-700 after:border-l-transparent after:border-b-transparent after:border-r-transparent after:opacity-0  after:transition-all hover:before:opacity-100 hover:after:opacity-100"
                             data-tip="Download Converted File"
                           >
-                            <button className="has-tooltip  rounded-md px-3 py-2 text-white text-sm md:text-base bg-slate-500 flex gap-2 items-center hover:bg-slate-400">
+                            <button
+                              onClick={() =>
+                                window.open(
+                                  process.env.NEXT_PUBLIC_S3_BUCKET_BASE_URL +
+                                    data.converted,
+                                  "_blank"
+                                )
+                              }
+                              className="has-tooltip  rounded-md px-3 py-2 text-white text-sm md:text-base bg-slate-500 flex gap-2 items-center hover:bg-slate-400"
+                            >
                               <FileEarmarkCheck />
                               Converted
                             </button>
@@ -328,7 +446,16 @@ function PvToEvPage() {
                       after:absolute  after:left-1/2 after:-top-3 after:h-0 after:w-0 after:-translate-x-1/2 after:border-8 after:border-t-gray-700 after:border-l-transparent after:border-b-transparent after:border-r-transparent after:opacity-0  after:transition-all hover:before:opacity-100 hover:after:opacity-100"
                             data-tip="Download Original File"
                           >
-                            <button className="rounded-md px-3 py-2 text-white text-sm md:text-base bg-slate-500 flex gap-2 items-center hover:bg-slate-400">
+                            <button
+                              onClick={() =>
+                                window.open(
+                                  process.env.NEXT_PUBLIC_S3_BUCKET_BASE_URL +
+                                    data.original,
+                                  "_blank"
+                                )
+                              }
+                              className="rounded-md px-3 py-2 text-white text-sm md:text-base bg-slate-500 flex gap-2 items-center hover:bg-slate-400"
+                            >
                               <FileEarmarkArrowDown />
                               Original
                             </button>
@@ -338,6 +465,11 @@ function PvToEvPage() {
                             className="rounded-md px-3 py-2 text-white text-sm md:text-base bg-red-500 flex gap-2 items-center hover:bg-red-400"
                             onClick={() => {
                               setDelete(true);
+                              setDeleteId({
+                                id: data._id,
+                                original: data.original,
+                                converted: data.converted,
+                              });
                             }}
                           >
                             <Trash3 />
