@@ -30,6 +30,7 @@ function PvToEvPage() {
   const lastPart = pathname.split("/").pop();
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const token = useSelector((state) => state.user?.user?.token);
   const Data = [
@@ -145,12 +146,15 @@ function PvToEvPage() {
       setfileallowed(".xer");
     else setfileallowed(".xlsx");
 
+    setLoading(true);
     getFiles(token, lastPart)
       .then((response) => {
         setFilesList(response.data.files);
+        setLoading(false);
       })
       .catch((error) => {
         toast.error(error.response.data.message);
+        setLoading(false);
         setResponse(null);
       });
   }, []);
@@ -179,21 +183,22 @@ function PvToEvPage() {
       });
   };
   const deleteFile = () => {
-    setLoading(true);
+    setLoading2(true);
     deleteFiles(token, deleteId)
       .then((response) => {
         const data = filesList.filter((item) => item._id !== deleteId.id);
         setFilesList(data);
         setDelete(false);
-        setLoading(false);
+        setLoading2(false);
       })
       .catch((error) => {
         toast.error(error.response.data.message);
         setDelete(false);
-        setLoading(false);
+        setLoading2(false);
         setResponse(null);
       });
   };
+
 
   return (
     <div>
@@ -218,7 +223,7 @@ function PvToEvPage() {
                 setDelete(false);
                 setfile(null);
               }}
-              disabled={loading}
+              disabled={loading2}
               className="text-lg absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-100 hover:text-gray-600"
             >
               <X size={26} />
@@ -237,14 +242,14 @@ function PvToEvPage() {
                 <button
                   className="btn btn-danger w-full hover:bg-gray-100 px-4 py-2 rounded-md"
                   onClick={() => deleteFile()}
-                  disabled={loading}
+                  disabled={loading2}
                 >
-                  {loading ? "Deleting..." : "Delete"}
+                  {loading2 ? "Deleting..." : "Delete"}
                 </button>
                 <button
                   className="btn btn-light w-full hover:bg-gray-100 px-4 py-2 rounded-md"
                   onClick={() => setDelete(false)}
-                  disabled={loading}
+                  disabled={loading2}
                 >
                   Cancel
                 </button>
@@ -392,103 +397,121 @@ function PvToEvPage() {
                 </th>
               </tr>
             </thead>
-            {filesList && filesList.length > 0 ? (
-              <tbody>
-                {filesList &&
-                  filesList.map((data, index) => (
-                    <tr
-                      key={index}
-                      className={`${
-                        index < Data.length
-                          ? "border border-b border-gray-300"
-                          : ""
-                      }`}
-                    >
-                      <td className=" border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
-                        {index + 1}
-                      </td>
-                      <td className="border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
-                        {data.fileName}
-                      </td>
-                      <td className="border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
-                        {data.createdAt.split("T")[0]}
-                      </td>
-                      <td className="border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
-                        {data.status}
-                      </td>
-                      <td className="border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
-                        {data.type}
-                      </td>
-                      <td className="border-r h-full border-solid border-gray-300 text-center p-3">
-                        <div className="flex items-center justify-center md:gap-3 gap-2">
-                          <div
-                            className="relative text-xs before:content-[attr(data-tip)] before:absolute before:px-3 before:py-2 before:left-1/2 before:-top-3 before:w-max before:max-w-xs before:-translate-x-1/2 before:-translate-y-full before:bg-gray-700 before:text-white before:rounded-md before:opacity-0  before:transition-all 
-                      after:absolute  after:left-1/2 after:-top-3 after:h-0 after:w-0 after:-translate-x-1/2 after:border-8 after:border-t-gray-700 after:border-l-transparent after:border-b-transparent after:border-r-transparent after:opacity-0  after:transition-all hover:before:opacity-100 hover:after:opacity-100"
-                            data-tip="Download Converted File"
-                          >
-                            <button
-                              onClick={() =>
-                                window.open(
-                                  process.env.NEXT_PUBLIC_S3_BUCKET_BASE_URL +
-                                    data.converted,
-                                  "_blank"
-                                )
-                              }
-                              className="has-tooltip  rounded-md px-3 py-2 text-white text-sm md:text-base bg-slate-500 flex gap-2 items-center hover:bg-slate-400"
-                            >
-                              <FileEarmarkCheck />
-                              Converted
-                            </button>
-                          </div>
 
-                          <div
-                            className="relative text-xs before:content-[attr(data-tip)] before:absolute before:px-3 before:py-2 before:left-1/2 before:-top-3 before:w-max before:max-w-xs before:-translate-x-1/2 before:-translate-y-full before:bg-gray-700 before:text-white before:rounded-md before:opacity-0  before:transition-all 
-                      after:absolute  after:left-1/2 after:-top-3 after:h-0 after:w-0 after:-translate-x-1/2 after:border-8 after:border-t-gray-700 after:border-l-transparent after:border-b-transparent after:border-r-transparent after:opacity-0  after:transition-all hover:before:opacity-100 hover:after:opacity-100"
-                            data-tip="Download Original File"
-                          >
-                            <button
-                              onClick={() =>
-                                window.open(
-                                  process.env.NEXT_PUBLIC_S3_BUCKET_BASE_URL +
-                                    data.original,
-                                  "_blank"
-                                )
-                              }
-                              className="rounded-md px-3 py-2 text-white text-sm md:text-base bg-slate-500 flex gap-2 items-center hover:bg-slate-400"
-                            >
-                              <FileEarmarkArrowDown />
-                              Original
-                            </button>
-                          </div>
-                          <button
-                            type="button"
-                            className="rounded-md px-3 py-2 text-white text-sm md:text-base bg-red-500 flex gap-2 items-center hover:bg-red-400"
-                            onClick={() => {
-                              setDelete(true);
-                              setDeleteId({
-                                id: data._id,
-                                original: data.original,
-                                converted: data.converted,
-                              });
-                            }}
-                          >
-                            <Trash3 />
-                            Delete
-                          </button>
-                        </div>
+            {!loading ? (
+              <>
+                {filesList && filesList.length > 0 ? (
+                  <tbody>
+                    {filesList &&
+                      filesList.map((data, index) => (
+                        <tr
+                          key={index}
+                          className={`${
+                            index < Data.length
+                              ? "border border-b border-gray-300"
+                              : ""
+                          }`}
+                        >
+                          <td className=" border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
+                            {index + 1}
+                          </td>
+                          <td className="border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
+                            {data.fileName}
+                          </td>
+                          <td className="border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
+                            {data.createdAt.split("T")[0]}
+                          </td>
+                          <td className="border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
+                            {data.status}
+                          </td>
+                          <td className="border-r h-full border-solid border-gray-300 text-center p-3 md:p-6 md:text-base text-sm">
+                            {data.type}
+                          </td>
+                          <td className="border-r h-full border-solid border-gray-300 text-center p-3">
+                            <div className="flex items-center justify-center md:gap-3 gap-2">
+                              <div
+                                className="relative text-xs before:content-[attr(data-tip)] before:absolute before:px-3 before:py-2 before:left-1/2 before:-top-3 before:w-max before:max-w-xs before:-translate-x-1/2 before:-translate-y-full before:bg-gray-700 before:text-white before:rounded-md before:opacity-0  before:transition-all 
+after:absolute  after:left-1/2 after:-top-3 after:h-0 after:w-0 after:-translate-x-1/2 after:border-8 after:border-t-gray-700 after:border-l-transparent after:border-b-transparent after:border-r-transparent after:opacity-0  after:transition-all hover:before:opacity-100 hover:after:opacity-100"
+                                data-tip="Download Converted File"
+                              >
+                                <button
+                                  onClick={() =>
+                                    window.open(
+                                      process.env
+                                        .NEXT_PUBLIC_S3_BUCKET_BASE_URL +
+                                        data.converted,
+                                      "_blank"
+                                    )
+                                  }
+                                  className="has-tooltip  rounded-md px-3 py-2 text-white text-sm md:text-base bg-slate-500 flex gap-2 items-center hover:bg-slate-400"
+                                >
+                                  <FileEarmarkCheck />
+                                  Converted
+                                </button>
+                              </div>
+
+                              <div
+                                className="relative text-xs before:content-[attr(data-tip)] before:absolute before:px-3 before:py-2 before:left-1/2 before:-top-3 before:w-max before:max-w-xs before:-translate-x-1/2 before:-translate-y-full before:bg-gray-700 before:text-white before:rounded-md before:opacity-0  before:transition-all 
+after:absolute  after:left-1/2 after:-top-3 after:h-0 after:w-0 after:-translate-x-1/2 after:border-8 after:border-t-gray-700 after:border-l-transparent after:border-b-transparent after:border-r-transparent after:opacity-0  after:transition-all hover:before:opacity-100 hover:after:opacity-100"
+                                data-tip="Download Original File"
+                              >
+                                <button
+                                  onClick={() =>
+                                    window.open(
+                                      process.env
+                                        .NEXT_PUBLIC_S3_BUCKET_BASE_URL +
+                                        data.original,
+                                      "_blank"
+                                    )
+                                  }
+                                  className="rounded-md px-3 py-2 text-white text-sm md:text-base bg-slate-500 flex gap-2 items-center hover:bg-slate-400"
+                                >
+                                  <FileEarmarkArrowDown />
+                                  Original
+                                </button>
+                              </div>
+                              <button
+                                type="button"
+                                className="rounded-md px-3 py-2 text-white text-sm md:text-base bg-red-500 flex gap-2 items-center hover:bg-red-400"
+                                onClick={() => {
+                                  setDelete(true);
+                                  setDeleteId({
+                                    id: data._id,
+                                    original: data.original,
+                                    converted: data.converted,
+                                  });
+                                }}
+                              >
+                                <Trash3 />
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                ) : (
+                  <tbody>
+                    <tr>
+                      <td colSpan="6" className="text-center py-6">
+                        <p className="text-gray-500 text-xl md:text-2xl flex items-center justify-center gap-2">
+                          <span>
+                            <DatabaseX />
+                          </span>
+                          No Data Found
+                        </p>
                       </td>
                     </tr>
-                  ))}
-              </tbody>
+                  </tbody>
+                )}
+              </>
             ) : (
               <tbody>
                 <tr>
                   <td colSpan="6" className="text-center py-6">
                     <p className="text-gray-500 text-xl md:text-2xl flex items-center justify-center gap-2">
-                      <span>
-                        <DatabaseX />
-                      </span>
-                      No Data Found
+                      
+                      Loading...
                     </p>
                   </td>
                 </tr>
