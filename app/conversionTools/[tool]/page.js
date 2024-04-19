@@ -177,9 +177,8 @@ function PvToEvPage() {
   };
 
   const handleSubmit = (file) => {
-    if (file.name.split(".").pop().toLowerCase() === "xlsx") {
+    if (file.name.split(".").pop().toLowerCase() === fileallowed.split(".").pop().toLowerCase()) {
       const formData = new FormData();
-
       formData.append("file", file);
       setProcessing(true);
       convertFile(token, formData)
@@ -199,7 +198,7 @@ function PvToEvPage() {
           setResponse(null);
         });
     } else {
-      toast.warn("Please upload a valid XLSX File");
+      toast.warn("Please upload a valid " + fileallowed.split(".").pop() + " File");
     }
   };
 
