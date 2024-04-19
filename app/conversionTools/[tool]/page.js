@@ -25,7 +25,7 @@ function PvToEvPage() {
   const [processing, setProcessing] = useState(null);
   const [filesList, setFilesList] = useState([]);
   const [fileallowed, setfileallowed] = useState(null);
-  const [file, setfile] = useState(null);
+  const [file1, setFile] = useState(null);
   const pathname = usePathname();
   const lastPart = pathname.split("/").pop();
   const [response, setResponse] = useState(null);
@@ -159,29 +159,6 @@ function PvToEvPage() {
       });
   }, []);
 
-  const handleSubmit = () => {
-    const formData = new FormData();
-
-    formData.append("file", file);
-    setProcessing(true);
-    convertFile(token, formData)
-      .then((response) => {
-        setfileUploadpop(false);
-        setfile(null);
-
-        setFilesList([...filesList, response.data.converted]);
-        setLoading(false);
-        toast.success(response.data.message);
-        setProcessing(false);
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-        setProcessing(false);
-        setfileUploadpop(false);
-        setLoading(false);
-        setResponse(null);
-      });
-  };
   const deleteFile = () => {
     setLoading2(true);
     deleteFiles(token, deleteId)
@@ -199,6 +176,32 @@ function PvToEvPage() {
       });
   };
 
+  const handleSubmit = (file) => {
+    if (file.name.split(".").pop().toLowerCase() === "xlsx") {
+      const formData = new FormData();
+
+      formData.append("file", file);
+      setProcessing(true);
+      convertFile(token, formData)
+        .then((response) => {
+          setfileUploadpop(false);
+          setFile(null);
+          setProcessing(false);
+          setFilesList([...filesList, response.data.converted]);
+          setLoading(false);
+          toast.success(response.data.message);
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message);
+          setProcessing(false);
+          setfileUploadpop(false);
+          setLoading(false);
+          setResponse(null);
+        });
+    } else {
+      toast.warn("Please upload a valid XLSX File");
+    }
+  };
 
   return (
     <div>
@@ -206,6 +209,7 @@ function PvToEvPage() {
         <div
           onClick={() => setDelete(false)}
           className={`
+          ${loading2 ? "pointer-events-none" : ""}
           fixed inset-0 flex justify-center items-center transition-colors
            bg-black/30 z-50
         `}
@@ -221,7 +225,7 @@ function PvToEvPage() {
             <button
               onClick={() => {
                 setDelete(false);
-                setfile(null);
+                setFile(null);
               }}
               disabled={loading2}
               className="text-lg absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-100 hover:text-gray-600"
@@ -262,6 +266,7 @@ function PvToEvPage() {
         <div
           onClick={() => setfileUploadpop(false)}
           className={`
+          ${processing ? "pointer-events-none" : ""}
           fixed inset-0 flex justify-center items-center transition-colors
            bg-black/30 z-50
         `}
@@ -277,7 +282,7 @@ function PvToEvPage() {
             <button
               onClick={() => {
                 setfileUploadpop(false);
-                setfile(null);
+                setFile(null);
               }}
               className="text-lg absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-100 hover:text-gray-600"
             >
@@ -291,12 +296,12 @@ function PvToEvPage() {
                 <div className="mt-2">
                   <div className="bg-slate-300 rounded-lg border border-dashed border-black flex justify-center items-center p-10">
                     <div className="text-center">
-                      {file ? (
+                      {file1 ? (
                         <div className="flex justify-center py-4">
                           <div className="flex flex-col justify-center mt-2 w-full">
                             <div className="relative flex justify-center">
                               <button
-                                onClick={() => setfile(null)}
+                                onClick={() => setFile(null)}
                                 className="text-slate-500 top-0 right-0 absolute"
                               >
                                 <X size={28} />
@@ -308,7 +313,7 @@ function PvToEvPage() {
                                 <FileEarmarkText size={64} />
                               </button>
                             </div>
-                            <p className="text-sm">{file.name}</p>
+                            <p className="text-sm">{file1.name}</p>
                           </div>
                         </div>
                       ) : (
@@ -342,23 +347,24 @@ function PvToEvPage() {
                   accept={fileallowed}
                   className="hidden"
                   onChange={(e) => {
-                    setfile(e.target.files[0]);
+                    handleSubmit(e.target.files[0]);
+                    setFile(e.target.files[0]);
                   }}
                 />
               </label>
             </div>
 
-            <div className="flex pt-4">
-              <button
-                onClick={() => handleSubmit()}
-                disabled={!file}
-                className={`rounded-md w-full md:px-5 px-4 md:py-2 py-1 text-[10px] md:text-base  text-white ${
-                  file ? "bg-slate-500" : "bg-slate-400"
-                } hover:bg-slate-400`}
-              >
-                {processing ? "Processing..." : "Submit"}
-              </button>
-            </div>
+            {processing && (
+              <div className="flex pt-4">
+                <button
+                  // onClick={() => handleSubmit()}
+                  disabled={file1}
+                  className={`rounded-md w-full md:px-5 px-4 md:py-2 py-1 text-[10px] md:text-base  text-white ${"bg-slate-400"} hover:bg-slate-400`}
+                >
+                  {"Processing..."}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -407,7 +413,7 @@ function PvToEvPage() {
                         <tr
                           key={index}
                           className={`${
-                            index < Data.length
+                            index < filesList.length
                               ? "border border-b border-gray-300"
                               : ""
                           }`}
@@ -510,7 +516,6 @@ after:absolute  after:left-1/2 after:-top-3 after:h-0 after:w-0 after:-translate
                 <tr>
                   <td colSpan="6" className="text-center py-6">
                     <p className="text-gray-500 text-xl md:text-2xl flex items-center justify-center gap-2">
-                      
                       Loading...
                     </p>
                   </td>

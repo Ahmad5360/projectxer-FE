@@ -1,7 +1,11 @@
 import Image from "next/image";
 import React from "react";
+import { XERtoolsInfo, excelstoolsInfo } from "./constants/xerTools";
+import { useRouter } from "next/navigation";
 
 function HomePage() {
+  const router = useRouter();
+
   return (
     <div>
       <div className="text-3xl md:mt-8 px-3 text-[#576d7e] text-center italic pt-6 font-bold md:text-4xl">
@@ -17,7 +21,6 @@ function HomePage() {
               width={0}
               height={0}
               sizes="100vw"
-              
             />
           </div>
           <div
@@ -50,25 +53,46 @@ function HomePage() {
               <div>
                 <Image width="500" height="500" src="/tool2.png" alt="tool" />
               </div>
-              <div>
+              <div
+                onClick={() => router.push(XERtoolsInfo[0].link)}
+                className="cursor-pointer"
+              >
                 <Image width="500" height="500" src="/tool3.png" alt="tool" />
               </div>
-              <div>
+              <div
+                onClick={() => router.push(excelstoolsInfo[0].link)}
+                className="cursor-pointer"
+              >
                 <Image width="500" height="500" src="/tool4.png" alt="tool" />
               </div>
-              <div>
+              <div
+                onClick={() => router.push(XERtoolsInfo[1].link)}
+                className="cursor-pointer"
+              >
                 <Image width="500" height="500" src="/tool5.png" alt="tool" />
               </div>
-              <div>
+              <div
+                onClick={() => router.push(excelstoolsInfo[1].link)}
+                className="cursor-pointer"
+              >
                 <Image width="500" height="500" src="/tool6.png" alt="tool" />
               </div>
-              <div>
+              <div
+                onClick={() => router.push(XERtoolsInfo[2].link)}
+                className="cursor-pointer"
+              >
                 <Image width="500" height="500" src="/tool7.png" alt="tool" />
               </div>
-              <div>
+              <div
+                onClick={() => router.push(excelstoolsInfo[2].link)}
+                className="cursor-pointer"
+              >
                 <Image width="500" height="500" src="/tool8.png" alt="tool" />
               </div>
-              <div>
+              <div
+                onClick={() => router.push(XERtoolsInfo[3].link)}
+                className="cursor-pointer"
+              >
                 <Image width="500" height="500" src="/tool9.png" alt="tool" />
               </div>
             </div>
