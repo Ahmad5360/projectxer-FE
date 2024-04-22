@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import withAuth from "@/app/common/withAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "@/app/redux/userSlice";
-import { userSignin } from "@/app/apis";
+import { signinGoogle, userSignin } from "@/app/apis";
 import Loader from "@/app/common/loader";
 import { toast } from "react-toastify";
 
@@ -25,12 +25,13 @@ function LoginPage() {
   // const token = useSelector((state) => state.user?.user?.token);
 
   const onSuccess = (res) => {
-    console.log(res);
     setLoading(true);
 
     const data = {
       credential: res.credential,
     };
+
+    console.log(data);
 
     signinGoogle(token, data)
       .then((response) => {
@@ -67,7 +68,6 @@ function LoginPage() {
       });
   };
 
-  console.log(process.env.NEXT_PUBLIC_GOOGLE_SIGNIN_CLIENT_ID);
   return (
     <div>
       {loading ? (
