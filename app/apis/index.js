@@ -35,6 +35,10 @@ export const userSignup = async (signupData) => {
 export const userSignin = async (loginData) => {
   return await instance.post(`/auth/login`, loginData);
 };
+
+export const signinGoogle = async (token, loginData) => {
+  return await instance.post(`auth/signinGoogle`, loginData);
+};
 export const convertFile = async (token, data) => {
   const axiosWithToken = updateInstance(token);
   return await axiosWithToken.post(`/converter/upload`, data);

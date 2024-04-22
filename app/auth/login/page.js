@@ -21,29 +21,31 @@ function LoginPage() {
   const dispatch = useDispatch();
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
+  const clientId = process.env.NEXT_PUBLIC_GOOGLE_SIGNIN_CLIENT_ID;
   // const token = useSelector((state) => state.user?.user?.token);
 
   const onSuccess = (res) => {
     console.log(res);
-    // setLoading(true);
+    setLoading(true);
 
-    // const data = {
-    //   credential: res.credential,
-    // };
+    const data = {
+      credential: res.credential,
+    };
 
-    // signinGoogle(token, data)
-    //   .then((response) => {
-    //     setResponse(response.data);
-    //     setLoading(false);
-    //     setError(null);
-    //     dispatch(login(response.data));
-    //     router.push("/");
-    //   })
-    //   .catch((error) => {
-    //     setError(error.response.data.message);
-    //     setLoading(false);
-    //     setResponse(null);
-    //   });
+    signinGoogle(token, data)
+      .then((response) => {
+        setResponse(response.data);
+        setLoading(false);
+        setError(null);
+        toast.success(response.data.message);
+        dispatch(login(response.data));
+        router.push("/dashboard");
+      })
+      .catch((error) => {
+        setError(error.response.data.message);
+        setLoading(false);
+        setResponse(null);
+      });
   };
 
   const handleSubmit = (values, { resetForm }) => {
@@ -64,6 +66,8 @@ function LoginPage() {
         setResponse(null);
       });
   };
+
+  console.log(process.env.NEXT_PUBLIC_GOOGLE_SIGNIN_CLIENT_ID);
   return (
     <div>
       {loading ? (
@@ -171,7 +175,7 @@ function LoginPage() {
                   </p>
                 </div>
                 <div className="w-1/2 pb-4">
-                  <GoogleOAuthProvider clientId={"4454456"}>
+                  <GoogleOAuthProvider clientId={clientId}>
                     <GoogleLogin onSuccess={onSuccess} />
                   </GoogleOAuthProvider>
                 </div>
