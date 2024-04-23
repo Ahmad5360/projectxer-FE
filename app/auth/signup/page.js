@@ -1,6 +1,6 @@
 "use client";
 
-import { userSignup } from "@/app/apis";
+import { signinGoogle, userSignup } from "@/app/apis";
 import withAuth from "@/app/common/withAuth";
 import { signup } from "@/app/redux/userSlice";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
@@ -21,26 +21,25 @@ function SignupPage() {
   const [error, setError] = useState(null);
 
   const onSuccess = (res) => {
-    console.log(res);
-    // setLoading(true);
+    setLoading(true);
+    const data = {
+      credential: res.credential,
+    };
 
-    // const data = {
-    //   credential: res.credential,
-    // };
-
-    // signinGoogle(token, data)
-    //   .then((response) => {
-    //     setResponse(response.data);
-    //     setLoading(false);
-    //     setError(null);
-    //     dispatch(login(response.data));
-    //     router.push("/");
-    //   })
-    //   .catch((error) => {
-    //     setError(error.response.data.message);
-    //     setLoading(false);
-    //     setResponse(null);
-    //   });
+    signinGoogle(token, data)
+      .then((response) => {
+        setResponse(response.data);
+        setError(null);
+        toast.success(response.data.message);
+        dispatch(login(response.data));
+        router.push("/dashboard");
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error.response.data.message);
+        setLoading(false);
+        setResponse(null);
+      });
   };
 
   const handleSubmit = (values, { resetForm }) => {

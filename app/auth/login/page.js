@@ -26,12 +26,9 @@ function LoginPage() {
 
   const onSuccess = (res) => {
     setLoading(true);
-
     const data = {
       credential: res.credential,
     };
-
-    console.log(data);
 
     signinGoogle(token, data)
       .then((response) => {
@@ -54,11 +51,11 @@ function LoginPage() {
     userSignin(values)
       .then((response) => {
         setResponse(response.data);
-        setLoading(false);
         setError(null);
         toast.success(response.data.message);
         dispatch(login(response.data));
         router.push("/dashboard");
+        setLoading(false);
       })
       .catch((error) => {
         toast.error(error.response.data.message);
