@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { XERtoolsInfo, excelstoolsInfo } from "../constants/xerTools";
+import Link from "next/link";
 
 function Dashboard() {
   const router = useRouter();
@@ -27,24 +28,31 @@ function Dashboard() {
           {XERtoolsInfo.map((info, index) => (
             <div
               className="p-6 rounded-lg bg-white hover:shadow-lg shadow-md cursor-pointer w-[95%] mx-auto "
-              onClick={() => router.push(info.link)}
               key={index}
             >
               <div>
-                <Image 
+                <Image
                   width={0}
                   height={0}
                   sizes="100vw"
                   src={info.image}
                   alt={"image" + index + 1}
                   className="object-fill w-full"
+                  onClick={() => router.push(info.link)}
                 />
               </div>
               <div className="py-2">
-                <p className="font-semibold text-xl hover:text-blue-600">
+                <p
+                  className="font-semibold text-xl hover:text-blue-600"
+                  onClick={() => router.push(info.link)}
+                >
                   {info.title}
                 </p>
-                <p className="text-sm">{info.para}</p>
+                <Link href={info.para} target="_blank">
+                  <p className="text-sm hover:text-blue-600">
+                    {"Click here for details ->"}
+                  </p>
+                </Link>
               </div>
             </div>
           ))}
@@ -58,7 +66,6 @@ function Dashboard() {
           {excelstoolsInfo.map((info, index) => (
             <div
               className="p-6 rounded-lg bg-white hover:shadow-lg shadow-md cursor-pointer w-[95%] mx-auto "
-              onClick={() => router.push(info.link)}
               key={index}
             >
               <div>
@@ -68,13 +75,21 @@ function Dashboard() {
                   src={info.image}
                   alt={"image" + index + 1}
                   className="object-fill"
+                  onClick={() => router.push(info.link)}
                 />
               </div>
               <div className="py-2">
-                <p className="font-semibold text-xl hover:text-blue-600">
+                <p
+                  className="font-semibold text-xl hover:text-blue-600"
+                  onClick={() => router.push(info.link)}
+                >
                   {info.title}
                 </p>
-                <p className="text-sm">{info.para}</p>
+                <Link href={info.para} target="_blank">
+                  <p className="text-sm hover:text-blue-600">
+                    {"Click here for details ->"}
+                  </p>
+                </Link>
               </div>
             </div>
           ))}
