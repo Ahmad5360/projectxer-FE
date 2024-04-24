@@ -50,7 +50,7 @@ function Dashboard() {
                 </p>
                 <Link href={info.para} target="_blank">
                   <p className="text-sm hover:text-blue-600">
-                    {"Click here for details ->"}
+                    {"Click here to read an article on LinkedIn"}
                   </p>
                 </Link>
               </div>
@@ -87,7 +87,7 @@ function Dashboard() {
                 </p>
                 <Link href={info.para} target="_blank">
                   <p className="text-sm hover:text-blue-600">
-                    {"Click here for details ->"}
+                    {"Click here to read an article on LinkedIn"}
                   </p>
                 </Link>
               </div>
