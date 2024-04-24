@@ -42,12 +42,7 @@ function Dashboard() {
                 />
               </div>
               <div className="py-2">
-                <p
-                  className="font-semibold text-xl hover:text-blue-600"
-                  onClick={() => router.push(info.link)}
-                >
-                  {info.title}
-                </p>
+                
                 <Link href={info.para} target="_blank">
                   <p className="text-sm hover:text-blue-600">
                     {"Click here to read an article on LinkedIn"}
@@ -79,12 +74,7 @@ function Dashboard() {
                 />
               </div>
               <div className="py-2">
-                <p
-                  className="font-semibold text-xl hover:text-blue-600"
-                  onClick={() => router.push(info.link)}
-                >
-                  {info.title}
-                </p>
+                
                 <Link href={info.para} target="_blank">
                   <p className="text-sm hover:text-blue-600">
                     {"Click here to read an article on LinkedIn"}
