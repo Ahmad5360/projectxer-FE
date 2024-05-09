@@ -39,9 +39,9 @@ export const userSignin = async (loginData) => {
 export const signinGoogle = async (token, loginData) => {
   return await instance.post(`auth/signinGoogle`, loginData);
 };
-export const convertFile = async (token, data) => {
+export const convertFile = async (token, data, tool) => {
   const axiosWithToken = updateInstance(token);
-  return await axiosWithToken.post(`/converter/upload`, data);
+  return await axiosWithToken.post(`/converter/${tool}/upload`, data);
 };
 
 export const getFiles = async (token, type) => {
@@ -49,9 +49,9 @@ export const getFiles = async (token, type) => {
   return await axiosWithToken.get(`/converter/all/${type}`);
 };
 
-export const deleteFiles = async (token, deleteData) => {
+export const deleteFiles = async (token, deleteData, tool) => {
   const axiosWithToken = updateInstance(token);
-  return await axiosWithToken.post(`/converter/delete`, {
+  return await axiosWithToken.post(`/converter/${tool}/delete`, {
     converted: deleteData.converted,
     original: deleteData.original,
     id: deleteData.id,

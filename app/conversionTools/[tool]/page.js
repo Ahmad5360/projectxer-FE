@@ -33,92 +33,6 @@ function PvToEvPage() {
   const [loading2, setLoading2] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const token = useSelector((state) => state.user?.user?.token);
-  const Data = [
-    {
-      id: 1,
-      fileName: "SP01222222222222.xer",
-      date: "19-01-2024",
-      status: "Completed",
-      serviceType: "PV = EV",
-    },
-    {
-      id: 2,
-      fileName: "SP02222222222222.xer",
-      date: "20-01-2024",
-      status: "Pending",
-      serviceType: "Type A",
-    },
-    {
-      id: 3,
-      fileName: "SP03222222222222.xer",
-      date: "21-01-2024",
-      status: "In Progress",
-      serviceType: "Type B",
-    },
-    {
-      id: 4,
-      fileName: "SP04222222222222.xer",
-      date: "22-01-2024",
-      status: "Completed",
-      serviceType: "Type C",
-    },
-    {
-      id: 5,
-      fileName: "SP05222222222222.xer",
-      date: "23-01-2024",
-      status: "Pending",
-      serviceType: "Type D",
-    },
-    {
-      id: 6,
-      fileName: "SP06222222222222.xer",
-      date: "24-01-2024",
-      status: "In Progress",
-      serviceType: "Type E",
-    },
-    {
-      id: 7,
-      fileName: "SP07222222222222.xer",
-      date: "25-01-2024",
-      status: "Completed",
-      serviceType: "Type F",
-    },
-    {
-      id: 8,
-      fileName: "SP08222222222222.xer",
-      date: "26-01-2024",
-      status: "Pending",
-      serviceType: "Type G",
-    },
-    {
-      id: 9,
-      fileName: "SP09222222222222.xer",
-      date: "27-01-2024",
-      status: "In Progress",
-      serviceType: "Type H",
-    },
-    {
-      id: 10,
-      fileName: "SP10222222222222.xer",
-      date: "28-01-2024",
-      status: "Completed",
-      serviceType: "Type I",
-    },
-    {
-      id: 11,
-      fileName: "SP11222222222222.xer",
-      date: "29-01-2024",
-      status: "Pending",
-      serviceType: "Type J",
-    },
-    {
-      id: 12,
-      fileName: "SP12222222222222.xer",
-      date: "30-01-2024",
-      status: "In Progress",
-      serviceType: "Type K",
-    },
-  ];
 
   useEffect(() => {
     if (lastPart === "pvtoev") {
@@ -161,7 +75,7 @@ function PvToEvPage() {
 
   const deleteFile = () => {
     setLoading2(true);
-    deleteFiles(token, deleteId)
+    deleteFiles(token, deleteId, lastPart)
       .then((response) => {
         const data = filesList.filter((item) => item._id !== deleteId.id);
         setFilesList(data);
@@ -177,11 +91,14 @@ function PvToEvPage() {
   };
 
   const handleSubmit = (file) => {
-    if (file.name.split(".").pop().toLowerCase() === fileallowed.split(".").pop().toLowerCase()) {
+    if (
+      file.name.split(".").pop().toLowerCase() ===
+      fileallowed.split(".").pop().toLowerCase()
+    ) {
       const formData = new FormData();
       formData.append("file", file);
       setProcessing(true);
-      convertFile(token, formData)
+      convertFile(token, formData, lastPart)
         .then((response) => {
           setfileUploadpop(false);
           setFile(null);
@@ -198,7 +115,9 @@ function PvToEvPage() {
           setResponse(null);
         });
     } else {
-      toast.warn("Please upload a valid " + fileallowed.split(".").pop() + " File");
+      toast.warn(
+        "Please upload a valid " + fileallowed.split(".").pop() + " File"
+      );
     }
   };
 
