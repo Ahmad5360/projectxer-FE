@@ -77,6 +77,7 @@ function PvToEvPage() {
     setLoading2(true);
     deleteFiles(token, deleteId, lastPart)
       .then((response) => {
+        toast.error(response.response.data.message);
         const data = filesList.filter((item) => item._id !== deleteId.id);
         setFilesList(data);
         setDelete(false);
