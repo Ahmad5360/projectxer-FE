@@ -46,7 +46,7 @@ export const convertFile = async (token, data, tool) => {
 
 export const getFiles = async (token, type) => {
   const axiosWithToken = updateInstance(token);
-  return await axiosWithToken.get(`/converter/all/${type}`);
+  return await axiosWithToken.get(`/converter/${type}/all`);
 };
 
 export const deleteFiles = async (token, deleteData, tool) => {
