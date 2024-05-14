@@ -13,11 +13,10 @@ function Dashboard() {
     <div className="pb-10">
       <div className="py-14">
         <p className="text-2xl px-3 text-[#576d7e] text-center py-1 font-semibold md:text-3xl">
-          Explore Our Comprehensive Suite of Conversion Tools
+          Welcome to the world of possibilities!
         </p>
         <p className="px-3 text-[#576d7e] text-center  md:text-lg">
-          Effortlessly Convert Files Across Multiple Formats for Streamlined
-          Productivity
+          Effortlessly Convert Files to Enhance Productivity and Save Valuable Time
         </p>
       </div>
       <div>
@@ -42,7 +41,6 @@ function Dashboard() {
                 />
               </div>
               <div className="py-2">
-                
                 <Link href={info.para} target="_blank">
                   <p className="text-sm hover:text-blue-600">
                     {"Click here to read an article on LinkedIn"}
@@ -74,7 +72,6 @@ function Dashboard() {
                 />
               </div>
               <div className="py-2">
-                
                 <Link href={info.para} target="_blank">
                   <p className="text-sm hover:text-blue-600">
                     {"Click here to read an article on LinkedIn"}
