@@ -36,19 +36,19 @@ function PvToEvPage() {
 
   useEffect(() => {
     if (lastPart === "pvtoev") {
-      settoolName("PV to EV Conversion");
+      settoolName("Planned Value = Earned Value by Split");
     } else if (lastPart === "soos") {
       settoolName("Solve out of Sequence Activities");
     } else if (lastPart === "x-pobs") {
-      settoolName("X-POBS");
+      settoolName("Clean POBS Data (P6 file ≤ Version 8.4)");
     } else if (lastPart === "x-risktype") {
-      settoolName("X-RISKTYPE");
+      settoolName("Clean RISKTYPE data from XER files");
     } else if (lastPart === "rrr") {
       settoolName("Remove Redundant Relationships");
     } else if (lastPart === "dads") {
       settoolName("Dangling Activity Detector and Solver");
     } else if (lastPart === "cpd") {
-      settoolName("Critical Path Drag");
+      settoolName("Critical Path Drag - Stephen Devaux");
     }
 
     if (
