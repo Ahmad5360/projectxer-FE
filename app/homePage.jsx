@@ -95,6 +95,18 @@ function HomePage() {
               >
                 <Image width="500" height="500" src="/tool9.png" alt="tool" />
               </div>
+              <div
+                // onClick={() => router.push(XERtoolsInfo[3].link)}
+                className="cursor-pointer"
+              >
+                {/* <Image width="500" height="500" src="/tool9.png" alt="tool" /> */}
+              </div>
+              <div
+                onClick={() => router.push(XERtoolsInfo[4].link)}
+                className="cursor-pointer"
+              >
+                <Image width="500" height="500" src="/tool10.png" alt="tool" />
+              </div>
             </div>
             <div className="w-1/2 mx-auto flex justify-center items-center">
               <Image width="500" height="500" src="/tool_last.png" alt="tool" />

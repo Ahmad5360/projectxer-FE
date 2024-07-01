@@ -24,6 +24,12 @@ export const XERtoolsInfo = [
     link: "conversionTools/x-risktype",
     para: "https://www.linkedin.com/company/projectxer/",
   },
+  {
+    image: "/tool10.png",
+    title: "Schedule Assessment",
+    link: "conversionTools/dcma",
+    para: "https://www.linkedin.com/company/projectxer/",
+  },
 ];
 
 export const excelstoolsInfo = [

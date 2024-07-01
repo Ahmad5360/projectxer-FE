@@ -49,13 +49,16 @@ function PvToEvPage() {
       settoolName("Dangling Activity Detector and Solver");
     } else if (lastPart === "cpd") {
       settoolName("Critical Path Drag - Stephen Devaux");
+    } else if (lastPart === "dcma") {
+      settoolName("Schedule Assessment");
     }
 
     if (
       lastPart === "pvtoev" ||
       lastPart === "soos" ||
       lastPart === "x-pobs" ||
-      lastPart === "x-risktype"
+      lastPart === "x-risktype" ||
+      lastPart === "dcma"
     )
       setfileallowed(".xer");
     else setfileallowed(".xlsx");
