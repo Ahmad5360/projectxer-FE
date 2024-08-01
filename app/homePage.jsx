@@ -57,13 +57,13 @@ function HomePage() {
                 onClick={() => router.push(XERtoolsInfo[0].link)}
                 className="cursor-pointer"
               >
-                <Image width="500" height="500" src="/tool3.png" alt="tool" />
+                <Image width="500" height="65" src="/tool3.png" alt="tool" />
               </div>
               <div
                 onClick={() => router.push(excelstoolsInfo[0].link)}
                 className="cursor-pointer"
               >
-                <Image width="500" height="500" src="/tool4.png" alt="tool" />
+                <Image width="500" height="65" src="/tool4.png" alt="tool" />
               </div>
               <div
                 onClick={() => router.push(XERtoolsInfo[1].link)}
